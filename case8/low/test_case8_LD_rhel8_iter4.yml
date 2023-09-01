@@ -1,0 +1,41 @@
+---
+- name: Configure iptables on RHEL 8
+  hosts: rhel8
+  become: true
+  tasks:
+    - name: Flush all iptables rules
+      command: iptables -F
+      ignore_errors: yes
+
+    - name: Allow established connections
+      command: iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+      ignore_errors: yes
+
+    - name: Allow loopback interface
+      command: iptables -A INPUT -i lo -j ACCEPT
+      ignore_errors: yes
+
+    - name: Allow ICMP (ping) with rate limiting
+      command: iptables -A INPUT -p icmp --icmp-type echo-request -m limit --limit 1/s -j ACCEPT
+      ignore_errors: yes
+
+    - name: Allow SSH traffic from specific IP
+      command: iptables -A INPUT -p tcp --dport 22 -s 192.168.73.130 -j ACCEPT
+      ignore_errors: yes
+
+    - name: Allow HTTP (port 80) traffic
+      command: iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+      ignore_errors: yes
+
+    - name: Allow HTTPS (port 443) traffic
+      command: iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+      ignore_errors: yes
+
+    - name: Accept all output traffic
+      command: iptables -P OUTPUT ACCEPT
+      ignore_errors: yes
+      
+    - name: Set default policies
+      command: iptables -P INPUT DROP
+      ignore_errors: yes
+...

@@ -1,0 +1,19 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Disable IP Forwarding on RHEL 8] *****************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Ensure IP forwarding is disabled] ****************************************
+changed: [192.168.73.142] => changed=true
+
+RUNNING HANDLER [Restart Networking] *******************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Could not find the requested service network: host'
+...ignoring
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 18 seconds

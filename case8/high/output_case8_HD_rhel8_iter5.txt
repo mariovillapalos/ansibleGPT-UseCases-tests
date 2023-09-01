@@ -1,0 +1,77 @@
+
+PLAY [Configure iptables] ******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Install iptables and iptables-services] **********************************
+fatal: [192.168.73.142]: FAILED! => 
+  msg: |-
+    The conditional check 'iptables_check.stat.exists == false' failed. The error was: error while evaluating conditional (iptables_check.stat.exists == false): 'iptables_check' is undefined. 'iptables_check' is undefined
+  
+    The error appears to be in '/home/mario/Documents/tfm/use-cases-ansible-GPT/use-cases/rhel8/playbooks-iterations/case12/high/test_case12_HD_rhel8_iter5.yml': line 7, column 7, but may
+    be elsewhere in the file depending on the exact syntax problem.
+  
+    The offending line appears to be:
+  
+  
+        - name: Install iptables and iptables-services
+          ^ here
+...ignoring
+
+TASK [Stop firewalld service] **************************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'value of state must be one of: reloaded, restarted, started, stopped, got: stop'
+...ignoring
+
+TASK [Stop nftables service] ***************************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'value of state must be one of: reloaded, restarted, started, stopped, got: stop'
+...ignoring
+
+TASK [Start and enable iptables service] ***************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'value of state must be one of: reloaded, restarted, started, stopped, got: start'
+...ignoring
+
+TASK [Flush all firewall rules] ************************************************
+failed: [192.168.73.142] (item=INPUT) => changed=false 
+  ansible_loop_var: item
+  item: INPUT
+  msg: 'value of action must be one of: append, insert, got: flush'
+failed: [192.168.73.142] (item=OUTPUT) => changed=false 
+  ansible_loop_var: item
+  item: OUTPUT
+  msg: 'value of action must be one of: append, insert, got: flush'
+failed: [192.168.73.142] (item=FORWARD) => changed=false 
+  ansible_loop_var: item
+  item: FORWARD
+  msg: 'value of action must be one of: append, insert, got: flush'
+...ignoring
+
+TASK [Allow incoming SSH traffic from specific IP] *****************************
+changed: [192.168.73.142]
+
+TASK [Enable ICMP traffic with rate limiting] **********************************
+changed: [192.168.73.142]
+
+TASK [Allow incoming HTTP (port 80) traffic] ***********************************
+changed: [192.168.73.142]
+
+TASK [Allow incoming HTTPS (port 443) traffic] *********************************
+changed: [192.168.73.142]
+
+TASK [Set default policy for INPUT chain to DROP] ******************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (iptables) module: default_policy. Supported parameters include: action, chain, chain_management, comment, ctstate, destination, destination_port, destination_ports, dst_range, flush, fragment, gateway, gid_owner, goto, icmp_type, in_interface, ip_version, jump, limit, limit_burst, log_level, log_prefix, match, match_set, match_set_flags, out_interface, policy, protocol, reject_with, rule_num, set_counters, set_dscp_mark, set_dscp_mark_class, source, source_port, src_range, state, syn, table, tcp_flags, to_destination, to_ports, to_source, uid_owner, wait.'
+...ignoring
+
+TASK [Set default policy for OUTPUT chain to ACCEPT] ***************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (iptables) module: default_policy. Supported parameters include: action, chain, chain_management, comment, ctstate, destination, destination_port, destination_ports, dst_range, flush, fragment, gateway, gid_owner, goto, icmp_type, in_interface, ip_version, jump, limit, limit_burst, log_level, log_prefix, match, match_set, match_set_flags, out_interface, policy, protocol, reject_with, rule_num, set_counters, set_dscp_mark, set_dscp_mark_class, source, source_port, src_range, state, syn, table, tcp_flags, to_destination, to_ports, to_source, uid_owner, wait.'
+...ignoring
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=12   changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=7   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 24 seconds

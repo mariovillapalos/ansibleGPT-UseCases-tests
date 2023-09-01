@@ -1,0 +1,45 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Check and enable gpgcheck on RHEL8] **************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check current gpgcheck status] *******************************************
+ok: [192.168.73.142] => changed=false 
+  cmd:
+  - cat
+  - /etc/yum.conf
+  - '|'
+  - grep
+  - -E
+  - ^gpgcheck\s*=\s*0
+  delta: '0:00:00.004104'
+  end: '2023-08-14 22:23:24.400929'
+  failed_when_result: false
+  msg: non-zero return code
+  rc: 1
+  start: '2023-08-14 22:23:24.396825'
+  stderr: |-
+    cat: '|': No such file or directory
+    cat: grep: No such file or directory
+    cat: '^gpgcheck\s*=\s*0': No such file or directory
+  stderr_lines: <omitted>
+  stdout: |-
+    [main]$
+    gpgcheck=0$
+    installonly_limit=3$
+    clean_requirements_on_remove=True$
+    best=True$
+    skip_if_unavailable=False$
+  stdout_lines: <omitted>
+
+TASK [Enable gpgcheck if it's disabled] ****************************************
+changed: [192.168.73.142] => changed=true 
+  backup: ''
+  msg: line replaced
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 18 seconds

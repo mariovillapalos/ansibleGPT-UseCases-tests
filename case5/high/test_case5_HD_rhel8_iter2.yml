@@ -1,0 +1,61 @@
+---
+- name: Ensure re-authentication for privilege escalation is not disabled globally
+  hosts: rhel8
+  become: true
+  become_method: sudo
+
+  tasks:
+    - name: Check /etc/sudoers file for "!authenticate" tag
+      shell: cat /etc/sudoers | grep '!authenticate'
+      register: sudoers_result
+      changed_when: false
+      failed_when: false
+      check_mode: false
+
+    - name: Remove "!authenticate" occurrences from /etc/sudoers file
+      block:
+        - name: Backup /etc/sudoers file
+          command: cp /etc/sudoers /etc/sudoers.backup
+          check_mode: false
+          changed_when: false
+          failed_when: false
+
+        - name: Replace "!authenticate" occurrences with "authenticate"
+          replace:
+            path: /etc/sudoers
+            regexp: '!authenticate'
+            replace: 'authenticate'
+          check_mode: false
+          changed_when: sudoers_result.stdout != ""
+          failed_when: false
+      when: sudoers_result.stdout != ""
+      check_mode: false
+
+    - name: Check /etc/sudoers.d files for "!authenticate" tag
+      shell: grep -r '!authenticate' /etc/sudoers.d
+      register: sudoers_d_result
+      changed_when: false
+      failed_when: false
+      check_mode: false
+
+    - name: Remove "!authenticate" occurrences from /etc/sudoers.d files
+      block:
+        - name: Backup /etc/sudoers.d files
+          command: cp -r /etc/sudoers.d /etc/sudoers.d.backup
+          check_mode: false
+          changed_when: false
+          failed_when: false
+
+        - name: Replace "!authenticate" occurrences with "authenticate" in /etc/sudoers.d files
+          replace:
+            path: "{{ item }}"
+            regexp: '!authenticate'
+            replace: 'authenticate'
+          with_fileglob: /etc/sudoers.d/*
+          check_mode: false
+          changed_when: sudoers_d_result.stdout != ""
+          failed_when: false
+      when: sudoers_d_result.stdout != ""
+      check_mode: false
+
+...

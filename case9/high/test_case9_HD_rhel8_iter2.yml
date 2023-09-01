@@ -1,0 +1,42 @@
+---
+- name: Configure Password Policies on RHEL 8
+  hosts: rhel8
+  become: true
+  tasks:
+    - name: Ensure minimum password length in pwquality.conf
+      copy:
+        dest: /etc/security/pwquality.conf
+        content: |
+          minlen = 14
+      ignore_errors: yes
+
+    - name: Ensure minimum required character classes in pwquality.conf
+      copy:
+        dest: /etc/security/pwquality.conf
+        content: |
+          minclass = 4
+      ignore_errors: yes
+
+    - name: Ensure number of attempts before account lock in faillock.conf
+      copy:
+        dest: /etc/security/faillock.conf
+        content: 
+          deny = 3
+      ignore_errors: yes
+
+    - name: Ensure unlock time in faillock.conf
+      copy:
+        dest: /etc/security/faillock.conf
+        content: |
+          unlock_time = 600
+      ignore_errors: yes
+
+    - name: Add password history line to system-auth and password-auth
+      lineinfile:
+        path: "{{ item }}"
+        line: "password required pam_pwhistory.so use_authtok remember=5"
+      loop:
+        - /etc/pam.d/system-auth
+        - /etc/pam.d/password-auth
+      ignore_errors: yes
+...

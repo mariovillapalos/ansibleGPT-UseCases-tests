@@ -1,0 +1,22 @@
+---
+- name: Ensure IP forwarding is disabled on RHEL8
+  hosts: rhel8
+  become: yes
+  ignore_errors: yes
+
+  tasks:
+    - name: Check if IP forwarding is enabled
+      shell: "sysctl net.ipv4.ip_forward"
+      register: ip_forward_status
+
+    - name: Disable IP forwarding if enabled
+      sysctl:
+        name: net.ipv4.ip_forward
+        value: 0
+        state: present
+      when: ip_forward_status.stdout == "net.ipv4.ip_forward = 1"
+
+    - name: Save sysctl settings
+      command: "sysctl --system"
+      when: ip_forward_status.stdout == "net.ipv4.ip_forward = 1"
+...

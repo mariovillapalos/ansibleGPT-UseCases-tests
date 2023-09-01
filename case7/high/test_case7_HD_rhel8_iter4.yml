@@ -1,0 +1,36 @@
+---
+- name: Ensure filesystem integrity using AIDE on RHEL8
+  hosts: rhel8
+  ignore_errors: yes
+  become: true
+  tasks:
+    - name: Verify if AIDE is installed
+      command: rpm -q aide
+      register: check_aide_installed
+      failed_when: check_aide_installed.rc != 0
+
+    - name: Install AIDE if not installed
+      yum:
+        name: aide
+        state: present
+      register: aide_installed
+      when: check_aide_installed.rc != 0
+
+    - name: Initialize AIDE database
+      command: aide --init
+      register: aide_initialized
+      when: aide_installed.rc == 0
+
+    - name: Rename AIDE database
+      command: mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
+      when: aide_installed.rc == 0 and aide_initialized.rc == 0
+
+    - name: Schedule daily AIDE check
+      cron:
+        name: "Run AIDE check"
+        minute: "0"
+        hour: "5"
+        job: "/usr/sbin/aide --check"
+      when: aide_installed.rc == 0
+
+...

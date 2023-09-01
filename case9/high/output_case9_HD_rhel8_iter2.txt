@@ -1,0 +1,26 @@
+
+PLAY [Configure Password Policies on RHEL 8] ***********************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Ensure minimum password length in pwquality.conf] ************************
+changed: [192.168.73.142]
+
+TASK [Ensure minimum required character classes in pwquality.conf] *************
+changed: [192.168.73.142]
+
+TASK [Ensure number of attempts before account lock in faillock.conf] **********
+changed: [192.168.73.142]
+
+TASK [Ensure unlock time in faillock.conf] *************************************
+changed: [192.168.73.142]
+
+TASK [Add password history line to system-auth and password-auth] **************
+changed: [192.168.73.142] => (item=/etc/pam.d/system-auth)
+changed: [192.168.73.142] => (item=/etc/pam.d/password-auth)
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=6    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 23 seconds

@@ -1,0 +1,58 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Configure iptables on RHEL8] *********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Flush all existing iptables rules] ***************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -F
+  delta: '0:00:00.005343'
+  end: '2023-08-17 01:50:25.246338'
+  msg: ''
+  rc: 0
+  start: '2023-08-17 01:50:25.240995'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Allow ICMP (ping) traffic with rate limiting] ****************************
+changed: [192.168.73.142] => changed=true 
+  chain: INPUT
+  chain_management: false
+  flush: false
+  ip_version: ipv4
+  rule: -p icmp -j ACCEPT -m limit --limit 2/s
+  state: present
+  table: filter
+
+TASK [Allow SSH traffic from the manager machine] ******************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (iptables) module: port. Supported parameters include: action, chain, chain_management, comment, ctstate, destination, destination_port, destination_ports, dst_range, flush, fragment, gateway, gid_owner, goto, icmp_type, in_interface, ip_version, jump, limit, limit_burst, log_level, log_prefix, match, match_set, match_set_flags, out_interface, policy, protocol, reject_with, rule_num, set_counters, set_dscp_mark, set_dscp_mark_class, source, source_port, src_range, state, syn, table, tcp_flags, to_destination, to_ports, to_source, uid_owner, wait.'
+...ignoring
+
+TASK [Allow HTTP (port 80) traffic] ********************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (iptables) module: port. Supported parameters include: action, chain, chain_management, comment, ctstate, destination, destination_port, destination_ports, dst_range, flush, fragment, gateway, gid_owner, goto, icmp_type, in_interface, ip_version, jump, limit, limit_burst, log_level, log_prefix, match, match_set, match_set_flags, out_interface, policy, protocol, reject_with, rule_num, set_counters, set_dscp_mark, set_dscp_mark_class, source, source_port, src_range, state, syn, table, tcp_flags, to_destination, to_ports, to_source, uid_owner, wait.'
+...ignoring
+
+TASK [Allow HTTPS (port 443) traffic] ******************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (iptables) module: port. Supported parameters include: action, chain, chain_management, comment, ctstate, destination, destination_port, destination_ports, dst_range, flush, fragment, gateway, gid_owner, goto, icmp_type, in_interface, ip_version, jump, limit, limit_burst, log_level, log_prefix, match, match_set, match_set_flags, out_interface, policy, protocol, reject_with, rule_num, set_counters, set_dscp_mark, set_dscp_mark_class, source, source_port, src_range, state, syn, table, tcp_flags, to_destination, to_ports, to_source, uid_owner, wait.'
+...ignoring
+
+TASK [Set default OUTPUT policy to ACCEPT] *************************************
+ok: [192.168.73.142] => changed=false 
+  chain: OUTPUT
+  chain_management: false
+  flush: false
+  ip_version: ipv4
+  rule: ''
+  state: present
+  table: filter
+
+TASK [Remove all INPUT traffic by default] *************************************

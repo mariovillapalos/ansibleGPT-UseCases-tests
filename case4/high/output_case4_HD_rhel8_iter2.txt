@@ -1,0 +1,26 @@
+
+PLAY [Update sudoers file on RHEL8 hosts] **************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check for occurrences of "NOPASSWD" in /etc/sudoers] *********************
+ok: [192.168.73.142]
+
+TASK [Update /etc/sudoers file] ************************************************
+changed: [192.168.73.142]
+
+TASK [Check for occurrences of "NOPASSWD" in /etc/sudoers.d/ansible] ***********
+ok: [192.168.73.142]
+
+TASK [Update /etc/sudoers.d/ansible file] **************************************
+changed: [192.168.73.142]
+
+RUNNING HANDLER [restart_sudo] *************************************************
+fatal: [192.168.73.142]: FAILED! => 
+  msg: Missing sudo password
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=5    changed=2    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 19 seconds

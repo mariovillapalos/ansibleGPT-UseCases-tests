@@ -1,0 +1,40 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Check and enable gpgcheck on RHEL8 host] *********************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check if gpgcheck is disabled] *******************************************
+changed: [192.168.73.142] => changed=true 
+  cmd: |-
+    grep -q "^gpgcheck=0" /etc/yum.conf || grep -q "^gpgcheck=0" /etc/yum.repos.d/*.repo
+  delta: '0:00:00.003934'
+  end: '2023-08-14 22:37:07.059415'
+  msg: ''
+  rc: 0
+  start: '2023-08-14 22:37:07.055481'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Enable gpgcheck if disabled] *********************************************
+changed: [192.168.73.142] => changed=true 
+  backup: ''
+  msg: line replaced
+
+TASK [Enable gpgcheck if disabled in repo files] *******************************
+fatal: [192.168.73.142]: FAILED! => 
+  msg: '''dict object'' has no attribute ''yumrepos''. ''dict object'' has no attribute ''yumrepos'''
+...ignoring
+
+RUNNING HANDLER [restart_yum] **************************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Could not find the requested service yum-cron.service: host'
+...ignoring
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=5    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=2   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 19 seconds

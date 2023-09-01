@@ -1,0 +1,30 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Verify and install sudo on RHEL8] ****************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check if sudo is installed] **********************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - which
+  - sudo
+  delta: '0:00:00.003310'
+  end: '2023-07-25 12:25:29.041010'
+  msg: ''
+  rc: 0
+  start: '2023-07-25 12:25:29.037700'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: /usr/bin/sudo
+  stdout_lines: <omitted>
+
+TASK [Install sudo package] ****************************************************
+skipping: [192.168.73.142] => changed=false 
+  skip_reason: Conditional result was False
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 17 seconds

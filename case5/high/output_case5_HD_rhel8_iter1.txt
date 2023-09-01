@@ -1,0 +1,190 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Ensure re-authentication for privilege escalation is not disabled globally] ***
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check /etc/sudoers file for "!authenticate" tag] *************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - grep
+  - '!authenticate'
+  - /etc/sudoers
+  delta: '0:00:00.003505'
+  end: '2023-08-03 22:49:32.250622'
+  msg: ''
+  rc: 0
+  start: '2023-08-03 22:49:32.247117'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: Defaults !authenticate
+  stdout_lines: <omitted>
+
+TASK [Remove "!authenticate" from /etc/sudoers file] ***************************
+changed: [192.168.73.142] => changed=true 
+  backup: ''
+  found: 1
+  msg: 1 line(s) removed
+
+TASK [Gather files in /etc/sudoers.d directory] ********************************
+ok: [192.168.73.142] => changed=false 
+  examined: 3
+  files:
+  - atime: 1691092285.9885058
+    ctime: 1691092256.7311578
+    dev: 66307
+    gid: 0
+    gr_name: root
+    inode: 18713026
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: false
+    isreg: true
+    issock: false
+    isuid: false
+    mode: '0644'
+    mtime: 1691092256.7311578
+    nlink: 1
+    path: /etc/sudoers.d/ansible
+    pw_name: root
+    rgrp: true
+    roth: true
+    rusr: true
+    size: 56
+    uid: 0
+    wgrp: false
+    woth: false
+    wusr: true
+    xgrp: false
+    xoth: false
+    xusr: false
+  matched: 1
+  msg: All paths examined
+  skipped_paths: {}
+
+TASK [Check sudoers.d files for "!authenticate" tag] ***************************
+changed: [192.168.73.142] => (item={'path': '/etc/sudoers.d/ansible', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 56, 'inode': 18713026, 'dev': 66307, 'nlink': 1, 'atime': 1691092285.9885058, 'mtime': 1691092256.7311578, 'ctime': 1691092256.7311578, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}) => changed=true 
+  ansible_loop_var: item
+  cmd:
+  - grep
+  - '!authenticate'
+  - /etc/sudoers.d/ansible
+  delta: '0:00:00.002715'
+  end: '2023-08-03 22:49:33.910887'
+  item:
+    atime: 1691092285.9885058
+    ctime: 1691092256.7311578
+    dev: 66307
+    gid: 0
+    gr_name: root
+    inode: 18713026
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: false
+    isreg: true
+    issock: false
+    isuid: false
+    mode: '0644'
+    mtime: 1691092256.7311578
+    nlink: 1
+    path: /etc/sudoers.d/ansible
+    pw_name: root
+    rgrp: true
+    roth: true
+    rusr: true
+    size: 56
+    uid: 0
+    wgrp: false
+    woth: false
+    wusr: true
+    xgrp: false
+    xoth: false
+    xusr: false
+  msg: ''
+  rc: 0
+  start: '2023-08-03 22:49:33.908172'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: Defaults !authenticate
+  stdout_lines: <omitted>
+
+TASK [Remove "!authenticate" from sudoers.d files] *****************************
+changed: [192.168.73.142] => (item={'changed': True, 'stdout': 'Defaults !authenticate', 'stderr': '', 'rc': 0, 'cmd': ['grep', '!authenticate', '/etc/sudoers.d/ansible'], 'start': '2023-08-03 22:49:33.908172', 'end': '2023-08-03 22:49:33.910887', 'delta': '0:00:00.002715', 'msg': '', 'invocation': {'module_args': {'_raw_params': 'grep \'!authenticate\' "/etc/sudoers.d/ansible"', '_uses_shell': False, 'stdin_add_newline': True, 'strip_empty_ends': True, 'argv': None, 'chdir': None, 'executable': None, 'creates': None, 'removes': None, 'stdin': None}}, 'stdout_lines': ['Defaults !authenticate'], 'stderr_lines': [], 'failed': False, 'item': {'path': '/etc/sudoers.d/ansible', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 56, 'inode': 18713026, 'dev': 66307, 'nlink': 1, 'atime': 1691092285.9885058, 'mtime': 1691092256.7311578, 'ctime': 1691092256.7311578, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}, 'ansible_loop_var': 'item'}) => changed=true 
+  ansible_loop_var: item
+  backup: ''
+  found: 1
+  item:
+    ansible_loop_var: item
+    changed: true
+    cmd:
+    - grep
+    - '!authenticate'
+    - /etc/sudoers.d/ansible
+    delta: '0:00:00.002715'
+    end: '2023-08-03 22:49:33.910887'
+    failed: false
+    invocation:
+      module_args:
+        _raw_params: grep '!authenticate' "/etc/sudoers.d/ansible"
+        _uses_shell: false
+        argv: null
+        chdir: null
+        creates: null
+        executable: null
+        removes: null
+        stdin: null
+        stdin_add_newline: true
+        strip_empty_ends: true
+    item:
+      atime: 1691092285.9885058
+      ctime: 1691092256.7311578
+      dev: 66307
+      gid: 0
+      gr_name: root
+      inode: 18713026
+      isblk: false
+      ischr: false
+      isdir: false
+      isfifo: false
+      isgid: false
+      islnk: false
+      isreg: true
+      issock: false
+      isuid: false
+      mode: '0644'
+      mtime: 1691092256.7311578
+      nlink: 1
+      path: /etc/sudoers.d/ansible
+      pw_name: root
+      rgrp: true
+      roth: true
+      rusr: true
+      size: 56
+      uid: 0
+      wgrp: false
+      woth: false
+      wusr: true
+      xgrp: false
+      xoth: false
+      xusr: false
+    msg: ''
+    rc: 0
+    start: '2023-08-03 22:49:33.908172'
+    stderr: ''
+    stderr_lines: []
+    stdout: Defaults !authenticate
+    stdout_lines:
+    - Defaults !authenticate
+  msg: 1 line(s) removed
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=6    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 19 seconds

@@ -1,0 +1,48 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Set password expiration for specific users] ******************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Change password expiration in /etc/login.defs] ***************************
+changed: [192.168.73.142] => (item={'regexp': '^PASS_MAX_DAYS', 'line': 'PASS_MAX_DAYS   365'}) => changed=true 
+  ansible_loop_var: item
+  backup: ''
+  item:
+    line: PASS_MAX_DAYS   365
+    regexp: ^PASS_MAX_DAYS
+  msg: line replaced
+changed: [192.168.73.142] => (item={'regexp': '^PASS_MIN_DAYS', 'line': 'PASS_MIN_DAYS   0'}) => changed=true 
+  ansible_loop_var: item
+  backup: ''
+  item:
+    line: PASS_MIN_DAYS   0
+    regexp: ^PASS_MIN_DAYS
+  msg: line replaced
+changed: [192.168.73.142] => (item={'regexp': '^PASS_WARN_AGE', 'line': 'PASS_WARN_AGE   7'}) => changed=true 
+  ansible_loop_var: item
+  backup: ''
+  item:
+    line: PASS_WARN_AGE   7
+    regexp: ^PASS_WARN_AGE
+  msg: line replaced
+
+TASK [Set password expiration for specific users] ******************************
+failed: [192.168.73.142] (item=root) => changed=false 
+  ansible_loop_var: item
+  item: root
+  msg: 'Unsupported parameters for (user) module: password_max_age. Supported parameters include: append, authorization, comment, create_home, expires, force, generate_ssh_key, group, groups, hidden, home, local, login_class, move_home, name, non_unique, password, password_expire_max, password_expire_min, password_lock, profile, remove, role, seuser, shell, skeleton, ssh_key_bits, ssh_key_comment, ssh_key_file, ssh_key_passphrase, ssh_key_type, state, system, uid, umask, update_password (createhome, user).'
+failed: [192.168.73.142] (item=ansible) => changed=false 
+  ansible_loop_var: item
+  item: ansible
+  msg: 'Unsupported parameters for (user) module: password_max_age. Supported parameters include: append, authorization, comment, create_home, expires, force, generate_ssh_key, group, groups, hidden, home, local, login_class, move_home, name, non_unique, password, password_expire_max, password_expire_min, password_lock, profile, remove, role, seuser, shell, skeleton, ssh_key_bits, ssh_key_comment, ssh_key_file, ssh_key_passphrase, ssh_key_type, state, system, uid, umask, update_password (createhome, user).'
+failed: [192.168.73.142] (item=luigi) => changed=false 
+  ansible_loop_var: item
+  item: luigi
+  msg: 'Unsupported parameters for (user) module: password_max_age. Supported parameters include: append, authorization, comment, create_home, expires, force, generate_ssh_key, group, groups, hidden, home, local, login_class, move_home, name, non_unique, password, password_expire_max, password_expire_min, password_lock, profile, remove, role, seuser, shell, skeleton, ssh_key_bits, ssh_key_comment, ssh_key_file, ssh_key_passphrase, ssh_key_type, state, system, uid, umask, update_password (createhome, user).'
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=2    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 20 seconds

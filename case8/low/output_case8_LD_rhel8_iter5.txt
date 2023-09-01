@@ -1,0 +1,23 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Configure iptables on RHEL 8] ********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Flush existing iptables rules] *******************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -F
+  delta: '0:00:00.010851'
+  end: '2023-08-17 03:47:35.547780'
+  msg: ''
+  rc: 0
+  start: '2023-08-17 03:47:35.536929'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Set default policies] ****************************************************

@@ -1,0 +1,57 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Ensure filesystem integrity with AIDE on RHEL8] **************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check if AIDE is installed] **********************************************
+fatal: [192.168.73.142]: FAILED! => 
+  msg: 'The conditional check ''aide_installed.rc == 0'' failed. The error was: error while evaluating conditional (aide_installed.rc == 0): ''dict object'' has no attribute ''rc''. ''dict object'' has no attribute ''rc'''
+...ignoring
+
+TASK [Install AIDE if not installed] *******************************************
+fatal: [192.168.73.142]: FAILED! => 
+  msg: |-
+    The conditional check 'aide_installed.rc != 0' failed. The error was: error while evaluating conditional (aide_installed.rc != 0): 'dict object' has no attribute 'rc'. 'dict object' has no attribute 'rc'
+  
+    The error appears to be in '/home/mario/Documents/tfm/use-cases-ansible-GPT/use-cases/rhel8/playbooks-iterations/case11/high/test_case11_HD_rhel8_iter3.yml': line 16, column 7, but may
+    be elsewhere in the file depending on the exact syntax problem.
+  
+    The offending line appears to be:
+  
+  
+        - name: Install AIDE if not installed
+          ^ here
+...ignoring
+
+TASK [Initialize AIDE database] ************************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  cmd:
+  - aide
+  - --init
+  delta: null
+  end: null
+  msg: 'Unable to change directory before execution: [Errno 2] No such file or directory: b''/var/lib/aide'''
+  rc: null
+  start: null
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+...ignoring
+
+TASK [Rename AIDE database] ****************************************************
+skipping: [192.168.73.142] => changed=false 
+  skip_reason: Conditional result was False
+
+TASK [Schedule AIDE check as a cron job] ***************************************
+changed: [192.168.73.142] => changed=true 
+  envs: []
+  jobs:
+  - Run AIDE check
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=5    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=3   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 18 seconds

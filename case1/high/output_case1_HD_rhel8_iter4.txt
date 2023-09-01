@@ -1,0 +1,44 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Verify and Install Sudo] *************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check if sudo is installed] **********************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - dnf
+  - list
+  - sudo
+  delta: '0:00:38.060128'
+  end: '2023-07-25 13:08:00.683293'
+  msg: ''
+  rc: 0
+  start: '2023-07-25 13:07:22.623165'
+  stderr: |-
+    2023-07-25 13:07:23,334 [ERROR] dnf:7196:MainThread @logutil.py:194 - [Errno 13] Permission denied: '/var/log/rhsm/rhsm.log' - Further logging output will be written to stderr
+    2023-07-25 13:07:23,337 [ERROR] dnf:7196:MainThread @identity.py:156 - Reload of consumer identity cert /etc/pki/consumer/cert.pem raised an exception with msg: [Errno 13] Permission denied: '/etc/pki/consumer/key.pem'
+  stderr_lines: <omitted>
+  stdout: |-
+    Not root, Subscription Management repositories not updated
+  
+    This system is not registered to Red Hat Subscription Management. You can use subscription-manager to register.
+  
+    Red Hat Enterprise Linux 8 for x86_64 - BaseOS   10 MB/s |  62 MB     00:06
+    Red Hat Enterprise Linux 8 for x86_64 - AppStre  10 MB/s |  58 MB     00:05
+    Last metadata expiration check: 0:00:10 ago on Tue 25 Jul 2023 01:07:43 PM CEST.
+    Installed Packages
+    sudo.x86_64             1.8.29-7.el8               @anaconda
+    Available Packages
+    sudo.x86_64             1.8.29-10.el8              rhel-8-for-x86_64-baseos-rpms
+  stdout_lines: <omitted>
+
+TASK [Install sudo if not present] *********************************************
+skipping: [192.168.73.142] => changed=false 
+  skip_reason: Conditional result was False
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 56 seconds

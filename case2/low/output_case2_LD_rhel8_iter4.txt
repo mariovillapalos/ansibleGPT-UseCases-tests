@@ -1,0 +1,18 @@
+
+PLAY [Ensure password expiration is 365 days or less] **************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Update /etc/login.defs] **************************************************
+changed: [192.168.73.142] => (item={'regexp': '^PASS_MAX_DAYS', 'line': 'PASS_MAX_DAYS   365'})
+
+TASK [Change password expiration for root, ansible, and luigi] *****************
+changed: [192.168.73.142] => (item=root)
+changed: [192.168.73.142] => (item=ansible)
+changed: [192.168.73.142] => (item=luigi)
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 22 seconds

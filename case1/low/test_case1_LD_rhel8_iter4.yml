@@ -1,0 +1,17 @@
+---
+- name: Install sudo on RHEL8
+  hosts: rhel8
+  become: true
+
+  tasks:
+    - name: Check if sudo is installed
+      stat:
+        path: /usr/bin/sudo
+      register: sudo_check
+
+    - name: Install sudo package
+      package:
+        name: sudo
+        state: present
+      when: not sudo_check.stat.exists
+...

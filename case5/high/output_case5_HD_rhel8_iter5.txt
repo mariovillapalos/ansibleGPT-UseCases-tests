@@ -1,0 +1,193 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Ensure re-authentication for privilege escalation is enabled] ************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Gather files in /etc/sudoers.d directory] ********************************
+ok: [192.168.73.142] => changed=false 
+  examined: 4
+  files:
+  - atime: 1691092285.9885058
+    ctime: 1691092256.7311578
+    dev: 66307
+    gid: 0
+    gr_name: root
+    inode: 18713026
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: false
+    isreg: true
+    issock: false
+    isuid: false
+    mode: '0644'
+    mtime: 1691092256.7311578
+    nlink: 1
+    path: /etc/sudoers.d/ansible
+    pw_name: root
+    rgrp: true
+    roth: true
+    rusr: true
+    size: 56
+    uid: 0
+    wgrp: false
+    woth: false
+    wusr: true
+    xgrp: false
+    xoth: false
+    xusr: false
+  - atime: 1691108823.2054675
+    ctime: 1691108593.1058383
+    dev: 66307
+    gid: 0
+    gr_name: root
+    inode: 17519724
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: false
+    isreg: true
+    issock: false
+    isuid: false
+    mode: '0644'
+    mtime: 1691108593.1058383
+    nlink: 1
+    path: /etc/sudoers.d/luigi
+    pw_name: root
+    rgrp: true
+    roth: true
+    rusr: true
+    size: 54
+    uid: 0
+    wgrp: false
+    woth: false
+    wusr: true
+    xgrp: false
+    xoth: false
+    xusr: false
+  matched: 2
+  msg: All paths examined
+  skipped_paths: {}
+
+TASK [Read /etc/sudoers file] **************************************************
+ok: [192.168.73.142] => changed=false 
+  content: IyMgU3Vkb2VycyBhbGxvd3MgcGFydGljdWxhciB1c2VycyB0byBydW4gdmFyaW91cyBjb21tYW5kcyBhcwojIyB0aGUgcm9vdCB1c2VyLCB3aXRob3V0IG5lZWRpbmcgdGhlIHJvb3QgcGFzc3dvcmQuCiMjCiMjIEV4YW1wbGVzIGFyZSBwcm92aWRlZCBhdCB0aGUgYm90dG9tIG9mIHRoZSBmaWxlIGZvciBjb2xsZWN0aW9ucwojIyBvZiByZWxhdGVkIGNvbW1hbmRzLCB3aGljaCBjYW4gdGhlbiBiZSBkZWxlZ2F0ZWQgb3V0IHRvIHBhcnRpY3VsYXIKIyMgdXNlcnMgb3IgZ3JvdXBzLgojIyAKIyMgVGhpcyBmaWxlIG11c3QgYmUgZWRpdGVkIHdpdGggdGhlICd2aXN1ZG8nIGNvbW1hbmQuCgojIyBIb3N0IEFsaWFzZXMKIyMgR3JvdXBzIG9mIG1hY2hpbmVzLiBZb3UgbWF5IHByZWZlciB0byB1c2UgaG9zdG5hbWVzIChwZXJoYXBzIHVzaW5nIAojIyB3aWxkY2FyZHMgZm9yIGVudGlyZSBkb21haW5zKSBvciBJUCBhZGRyZXNzZXMgaW5zdGVhZC4KIyBIb3N0X0FsaWFzICAgICBGSUxFU0VSVkVSUyA9IGZzMSwgZnMyCiMgSG9zdF9BbGlhcyAgICAgTUFJTFNFUlZFUlMgPSBzbXRwLCBzbXRwMgoKIyMgVXNlciBBbGlhc2VzCiMjIFRoZXNlIGFyZW4ndCBvZnRlbiBuZWNlc3NhcnksIGFzIHlvdSBjYW4gdXNlIHJlZ3VsYXIgZ3JvdXBzCiMjIChpZSwgZnJvbSBmaWxlcywgTERBUCwgTklTLCBldGMpIGluIHRoaXMgZmlsZSAtIGp1c3QgdXNlICVncm91cG5hbWUgCiMjIHJhdGhlciB0aGFuIFVTRVJBTElBUwojIFVzZXJfQWxpYXMgQURNSU5TID0ganNtaXRoLCBtaWtlbQoKCiMjIENvbW1hbmQgQWxpYXNlcwojIyBUaGVzZSBhcmUgZ3JvdXBzIG9mIHJlbGF0ZWQgY29tbWFuZHMuLi4KCiMjIE5ldHdvcmtpbmcKIyBDbW5kX0FsaWFzIE5FVFdPUktJTkcgPSAvc2Jpbi9yb3V0ZSwgL3NiaW4vaWZjb25maWcsIC9iaW4vcGluZywgL3NiaW4vZGhjbGllbnQsIC91c3IvYmluL25ldCwgL3NiaW4vaXB0YWJsZXMsIC91c3IvYmluL3JmY29tbSwgL3Vzci9iaW4vd3ZkaWFsLCAvc2Jpbi9pd2NvbmZpZywgL3NiaW4vbWlpLXRvb2wKCiMjIEluc3RhbGxhdGlvbiBhbmQgbWFuYWdlbWVudCBvZiBzb2Z0d2FyZQojIENtbmRfQWxpYXMgU09GVFdBUkUgPSAvYmluL3JwbSwgL3Vzci9iaW4vdXAyZGF0ZSwgL3Vzci9iaW4veXVtCgojIyBTZXJ2aWNlcwojIENtbmRfQWxpYXMgU0VSVklDRVMgPSAvc2Jpbi9zZXJ2aWNlLCAvc2Jpbi9jaGtjb25maWcsIC91c3IvYmluL3N5c3RlbWN0bCBzdGFydCwgL3Vzci9iaW4vc3lzdGVtY3RsIHN0b3AsIC91c3IvYmluL3N5c3RlbWN0bCByZWxvYWQsIC91c3IvYmluL3N5c3RlbWN0bCByZXN0YXJ0LCAvdXNyL2Jpbi9zeXN0ZW1jdGwgc3RhdHVzLCAvdXNyL2Jpbi9zeXN0ZW1jdGwgZW5hYmxlLCAvdXNyL2Jpbi9zeXN0ZW1jdGwgZGlzYWJsZQoKIyMgVXBkYXRpbmcgdGhlIGxvY2F0ZSBkYXRhYmFzZQojIENtbmRfQWxpYXMgTE9DQVRFID0gL3Vzci9iaW4vdXBkYXRlZGIKCiMjIFN0b3JhZ2UKIyBDbW5kX0FsaWFzIFNUT1JBR0UgPSAvc2Jpbi9mZGlzaywgL3NiaW4vc2ZkaXNrLCAvc2Jpbi9wYXJ0ZWQsIC9zYmluL3BhcnRwcm9iZSwgL2Jpbi9tb3VudCwgL2Jpbi91bW91bnQKCiMjIERlbGVnYXRpbmcgcGVybWlzc2lvbnMKIyBDbW5kX0FsaWFzIERFTEVHQVRJTkcgPSAvdXNyL3NiaW4vdmlzdWRvLCAvYmluL2Nob3duLCAvYmluL2NobW9kLCAvYmluL2NoZ3JwIAoKIyMgUHJvY2Vzc2VzCiMgQ21uZF9BbGlhcyBQUk9DRVNTRVMgPSAvYmluL25pY2UsIC9iaW4va2lsbCwgL3Vzci9iaW4va2lsbCwgL3Vzci9iaW4va2lsbGFsbAoKIyMgRHJpdmVycwojIENtbmRfQWxpYXMgRFJJVkVSUyA9IC9zYmluL21vZHByb2JlCgojIERlZmF1bHRzIHNwZWNpZmljYXRpb24KCiMKIyBSZWZ1c2UgdG8gcnVuIGlmIHVuYWJsZSB0byBkaXNhYmxlIGVjaG8gb24gdGhlIHR0eS4KIwpEZWZhdWx0cyAgICF2aXNpYmxlcHcKCiMKIyBQcmVzZXJ2aW5nIEhPTUUgaGFzIHNlY3VyaXR5IGltcGxpY2F0aW9ucyBzaW5jZSBtYW55IHByb2dyYW1zCiMgdXNlIGl0IHdoZW4gc2VhcmNoaW5nIGZvciBjb25maWd1cmF0aW9uIGZpbGVzLiBOb3RlIHRoYXQgSE9NRQojIGlzIGFscmVhZHkgc2V0IHdoZW4gdGhlIHRoZSBlbnZfcmVzZXQgb3B0aW9uIGlzIGVuYWJsZWQsIHNvCiMgdGhpcyBvcHRpb24gaXMgb25seSBlZmZlY3RpdmUgZm9yIGNvbmZpZ3VyYXRpb25zIHdoZXJlIGVpdGhlcgojIGVudl9yZXNldCBpcyBkaXNhYmxlZCBvciBIT01FIGlzIHByZXNlbnQgaW4gdGhlIGVudl9rZWVwIGxpc3QuCiMKRGVmYXVsdHMgICAgYWx3YXlzX3NldF9ob21lCkRlZmF1bHRzICAgIG1hdGNoX2dyb3VwX2J5X2dpZAoKIyBQcmlvciB0byB2ZXJzaW9uIDEuOC4xNSwgZ3JvdXBzIGxpc3RlZCBpbiBzdWRvZXJzIHRoYXQgd2VyZSBub3QKIyBmb3VuZCBpbiB0aGUgc3lzdGVtIGdyb3VwIGRhdGFiYXNlIHdlcmUgcGFzc2VkIHRvIHRoZSBncm91cAojIHBsdWdpbiwgaWYgYW55LiBTdGFydGluZyB3aXRoIDEuOC4xNSwgb25seSBncm91cHMgb2YgdGhlIGZvcm0KIyAlOmdyb3VwIGFyZSByZXNvbHZlZCB2aWEgdGhlIGdyb3VwIHBsdWdpbiBieSBkZWZhdWx0LgojIFdlIGVuYWJsZSBhbHdheXNfcXVlcnlfZ3JvdXBfcGx1Z2luIHRvIHJlc3RvcmUgb2xkIGJlaGF2aW9yLgojIERpc2FibGUgdGhpcyBvcHRpb24gZm9yIG5ldyBiZWhhdmlvci4KRGVmYXVsdHMgICAgYWx3YXlzX3F1ZXJ5X2dyb3VwX3BsdWdpbgoKRGVmYXVsdHMgICAgZW52X3Jlc2V0CkRlZmF1bHRzICAgIGVudl9rZWVwID0gICJDT0xPUlMgRElTUExBWSBIT1NUTkFNRSBISVNUU0laRSBLREVESVIgTFNfQ09MT1JTIgpEZWZhdWx0cyAgICBlbnZfa2VlcCArPSAiTUFJTCBQUzEgUFMyIFFURElSIFVTRVJOQU1FIExBTkcgTENfQUREUkVTUyBMQ19DVFlQRSIKRGVmYXVsdHMgICAgZW52X2tlZXAgKz0gIkxDX0NPTExBVEUgTENfSURFTlRJRklDQVRJT04gTENfTUVBU1VSRU1FTlQgTENfTUVTU0FHRVMiCkRlZmF1bHRzICAgIGVudl9rZWVwICs9ICJMQ19NT05FVEFSWSBMQ19OQU1FIExDX05VTUVSSUMgTENfUEFQRVIgTENfVEVMRVBIT05FIgpEZWZhdWx0cyAgICBlbnZfa2VlcCArPSAiTENfVElNRSBMQ19BTEwgTEFOR1VBR0UgTElOR1VBUyBfWEtCX0NIQVJTRVQgWEFVVEhPUklUWSIKCiMKIyBBZGRpbmcgSE9NRSB0byBlbnZfa2VlcCBtYXkgZW5hYmxlIGEgdXNlciB0byBydW4gdW5yZXN0cmljdGVkCiMgY29tbWFuZHMgdmlhIHN1ZG8uCiMKIyBEZWZhdWx0cyAgIGVudl9rZWVwICs9ICJIT01FIgoKRGVmYXVsdHMgICAgc2VjdXJlX3BhdGggPSAvc2JpbjovYmluOi91c3Ivc2JpbjovdXNyL2JpbgoKIyMgTmV4dCBjb21lcyB0aGUgbWFpbiBwYXJ0OiB3aGljaCB1c2VycyBjYW4gcnVuIHdoYXQgc29mdHdhcmUgb24gCiMjIHdoaWNoIG1hY2hpbmVzICh0aGUgc3Vkb2VycyBmaWxlIGNhbiBiZSBzaGFyZWQgYmV0d2VlbiBtdWx0aXBsZQojIyBzeXN0ZW1zKS4KIyMgU3ludGF4OgojIwojIyAJdXNlcglNQUNISU5FPUNPTU1BTkRTCiMjCiMjIFRoZSBDT01NQU5EUyBzZWN0aW9uIG1heSBoYXZlIG90aGVyIG9wdGlvbnMgYWRkZWQgdG8gaXQuCiMjCiMjIEFsbG93IHJvb3QgdG8gcnVuIGFueSBjb21tYW5kcyBhbnl3aGVyZSAKcm9vdAlBTEw9KEFMTCkgCUFMTAoKIyMgQWxsb3dzIG1lbWJlcnMgb2YgdGhlICdzeXMnIGdyb3VwIHRvIHJ1biBuZXR3b3JraW5nLCBzb2Z0d2FyZSwgCiMjIHNlcnZpY2UgbWFuYWdlbWVudCBhcHBzIGFuZCBtb3JlLgojICVzeXMgQUxMID0gTkVUV09SS0lORywgU09GVFdBUkUsIFNFUlZJQ0VTLCBTVE9SQUdFLCBERUxFR0FUSU5HLCBQUk9DRVNTRVMsIExPQ0FURSwgRFJJVkVSUwoKIyMgQWxsb3dzIHBlb3BsZSBpbiBncm91cCB3aGVlbCB0byBydW4gYWxsIGNvbW1hbmRzCiV3aGVlbAlBTEw9KEFMTCkJQUxMCgojIyBTYW1lIHRoaW5nIHdpdGhvdXQgYSBwYXNzd29yZAojICV3aGVlbAlBTEw9KEFMTCkJTk9QQVNTV0Q6IEFMTAoKIyMgQWxsb3dzIG1lbWJlcnMgb2YgdGhlIHVzZXJzIGdyb3VwIHRvIG1vdW50IGFuZCB1bm1vdW50IHRoZSAKIyMgY2Ryb20gYXMgcm9vdAojICV1c2VycyAgQUxMPS9zYmluL21vdW50IC9tbnQvY2Ryb20sIC9zYmluL3Vtb3VudCAvbW50L2Nkcm9tCgojIyBBbGxvd3MgbWVtYmVycyBvZiB0aGUgdXNlcnMgZ3JvdXAgdG8gc2h1dGRvd24gdGhpcyBzeXN0ZW0KIyAldXNlcnMgIGxvY2FsaG9zdD0vc2Jpbi9zaHV0ZG93biAtaCBub3cKCiMjIFJlYWQgZHJvcC1pbiBmaWxlcyBmcm9tIC9ldGMvc3Vkb2Vycy5kICh0aGUgIyBoZXJlIGRvZXMgbm90IG1lYW4gYSBjb21tZW50KQojaW5jbHVkZWRpciAvZXRjL3N1ZG9lcnMuZAoKRGVmYXVsdHMgIWF1dGhlbnRpY2F0ZQo=
+  encoding: base64
+  source: /etc/sudoers
+
+TASK [Replace !authenticate with authenticate in /etc/sudoers] *****************
+fatal: [192.168.73.142]: FAILED! => 
+  msg: |-
+    The conditional check 'sudoers_file_content.content | search('!authenticate') | length > 0' failed. The error was: template error while templating string: Could not load "search": 'search'. String: {% if sudoers_file_content.content | search('!authenticate') | length > 0 %} True {% else %} False {% endif %}. Could not load "search": 'search'
+  
+    The error appears to be in '/home/mario/Documents/tfm/use-cases-ansible-GPT/use-cases/rhel8/playbooks-iterations/case7/high/test_case7_HD_rhel8_iter5.yml': line 22, column 11, but may
+    be elsewhere in the file depending on the exact syntax problem.
+  
+    The offending line appears to be:
+  
+  
+            - name: Replace !authenticate with authenticate in /etc/sudoers
+              ^ here
+...ignoring
+
+TASK [Read each file in /etc/sudoers.d] ****************************************
+ok: [192.168.73.142] => (item={'path': '/etc/sudoers.d/ansible', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 56, 'inode': 18713026, 'dev': 66307, 'nlink': 1, 'atime': 1691092285.9885058, 'mtime': 1691092256.7311578, 'ctime': 1691092256.7311578, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}) => changed=false 
+  ansible_loop_var: item
+  content: RGVmYXVsdHMgIWF1dGhlbnRpY2F0ZQoKYW5zaWJsZSBBTEw9KEFMTCkgTk9QQVNTV0Q6IEFMTAo=
+  encoding: base64
+  item:
+    atime: 1691092285.9885058
+    ctime: 1691092256.7311578
+    dev: 66307
+    gid: 0
+    gr_name: root
+    inode: 18713026
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: false
+    isreg: true
+    issock: false
+    isuid: false
+    mode: '0644'
+    mtime: 1691092256.7311578
+    nlink: 1
+    path: /etc/sudoers.d/ansible
+    pw_name: root
+    rgrp: true
+    roth: true
+    rusr: true
+    size: 56
+    uid: 0
+    wgrp: false
+    woth: false
+    wusr: true
+    xgrp: false
+    xoth: false
+    xusr: false
+  source: /etc/sudoers.d/ansible
+ok: [192.168.73.142] => (item={'path': '/etc/sudoers.d/luigi', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 54, 'inode': 17519724, 'dev': 66307, 'nlink': 1, 'atime': 1691108823.2054675, 'mtime': 1691108593.1058383, 'ctime': 1691108593.1058383, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}) => changed=false 
+  ansible_loop_var: item
+  content: RGVmYXVsdHMgIWF1dGhlbnRpY2F0ZQoKbHVpZ2kgQUxMPShBTEwpIE5PUEFTU1dEOiBBTEwK
+  encoding: base64
+  item:
+    atime: 1691108823.2054675
+    ctime: 1691108593.1058383
+    dev: 66307
+    gid: 0
+    gr_name: root
+    inode: 17519724
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: false
+    isreg: true
+    issock: false
+    isuid: false
+    mode: '0644'
+    mtime: 1691108593.1058383
+    nlink: 1
+    path: /etc/sudoers.d/luigi
+    pw_name: root
+    rgrp: true
+    roth: true
+    rusr: true
+    size: 54
+    uid: 0
+    wgrp: false
+    woth: false
+    wusr: true
+    xgrp: false
+    xoth: false
+    xusr: false
+  source: /etc/sudoers.d/luigi
+
+TASK [Replace !authenticate with authenticate in each file] ********************
+fatal: [192.168.73.142]: FAILED! => 
+  msg: |-
+    The conditional check 'sudoers_d_file_content.results | map(attribute='content') | list | join('') | search('!authenticate') | length > 0' failed. The error was: template error while templating string: Could not load "search": 'search'. String: {% if sudoers_d_file_content.results | map(attribute='content') | list | join('') | search('!authenticate') | length > 0 %} True {% else %} False {% endif %}. Could not load "search": 'search'
+  
+    The error appears to be in '/home/mario/Documents/tfm/use-cases-ansible-GPT/use-cases/rhel8/playbooks-iterations/case7/high/test_case7_HD_rhel8_iter5.yml': line 42, column 11, but may
+    be elsewhere in the file depending on the exact syntax problem.
+  
+    The offending line appears to be:
+  
+  
+            - name: Replace !authenticate with authenticate in each file
+              ^ here
+...ignoring
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=2   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 19 seconds

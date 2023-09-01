@@ -1,0 +1,54 @@
+---
+- name: Ensure re-authentication for privilege escalation is enabled
+  hosts: rhel8
+  become: yes
+  gather_facts: yes
+  ignore_errors: yes
+
+  tasks:
+    - name: Gather files in /etc/sudoers.d directory
+      find:
+        paths: /etc/sudoers.d
+        file_type: file
+      register: sudoers_files
+
+    - name: Check and update /etc/sudoers file
+      block:
+        - name: Read /etc/sudoers file
+          slurp:
+            path: /etc/sudoers
+          register: sudoers_file_content
+
+        - name: Replace !authenticate with authenticate in /etc/sudoers
+          replace:
+            path: /etc/sudoers
+            regexp: '!authenticate'
+            replace: 'authenticate'
+          when: sudoers_file_content.content | search('!authenticate') | length > 0
+      rescue:
+        - name: Handle errors while updating /etc/sudoers
+          debug:
+            msg: "Error occurred while updating /etc/sudoers: {{ ansible_failed_result }}"
+          ignore_errors: yes
+
+    - name: Check and update files in /etc/sudoers.d directory
+      block:
+        - name: Read each file in /etc/sudoers.d
+          slurp:
+            path: "{{ item.path }}"
+          register: sudoers_d_file_content
+          loop: "{{ sudoers_files.files }}"
+
+        - name: Replace !authenticate with authenticate in each file
+          replace:
+            path: "{{ item.item.path }}"
+            regexp: '!authenticate'
+            replace: 'authenticate'
+          when: sudoers_d_file_content.results | map(attribute='content') | list | join('') | search('!authenticate') | length > 0
+      rescue:
+        - name: Handle errors while updating /etc/sudoers.d files
+          debug:
+            msg: "Error occurred while updating /etc/sudoers.d files: {{ ansible_failed_result }}"
+          ignore_errors: yes
+
+...

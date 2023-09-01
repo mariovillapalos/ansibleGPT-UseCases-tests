@@ -1,0 +1,26 @@
+---
+- name: Verify and Install sudo on RHEL 8
+  hosts: rhel8
+  become: true
+  tasks:
+    - name: Check if sudo is installed
+      stat:
+        path: /usr/bin/sudo
+      register: sudo_installed
+
+    - name: Install sudo package
+      package:
+        name: sudo
+        state: present
+      when: not sudo_installed.stat.exists
+
+    - name: Verify sudo installation
+      command: sudo --version
+      register: sudo_version
+      changed_when: false
+      failed_when: sudo_version.rc != 0
+
+    - name: Display sudo version
+      debug:
+        var: sudo_version.stdout
+...

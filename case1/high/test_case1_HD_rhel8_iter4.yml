@@ -1,0 +1,20 @@
+---
+- name: Verify and Install Sudo
+  hosts: rhel8
+  gather_facts: true
+
+  tasks:
+    - name: Check if sudo is installed
+      become: false
+      command: dnf list sudo
+      register: sudo_check_result
+      ignore_errors: yes
+
+    - name: Install sudo if not present
+      become: true
+      dnf:
+        name: sudo
+        state: present
+      when: sudo_check_result.rc != 0
+
+...

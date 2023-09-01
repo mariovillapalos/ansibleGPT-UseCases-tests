@@ -1,0 +1,57 @@
+---
+- name: Ensure re-authentication for privilege escalation is not disabled
+  hosts: rhel8
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Gather sudoers files
+      find:
+        paths: /etc/sudoers.d
+        file_type: file
+        patterns: '*'
+      register: sudoers_files
+
+    - name: Gather /etc/sudoers file
+      stat:
+        path: /etc/sudoers
+      register: sudoers_file
+
+    - name: Ensure sudoers files contain authenticate tag
+      block:
+        - name: Read /etc/sudoers file content
+          slurp:
+            path: /etc/sudoers
+          register: sudoers_content
+
+        - name: Check for occurrences of !authenticate tag in /etc/sudoers
+          shell: "grep '!authenticate' /etc/sudoers"
+          register: sudoers_check
+          ignore_errors: yes
+
+        - name: Remove occurrences of !authenticate tag in /etc/sudoers
+          lineinfile:
+            path: /etc/sudoers
+            regexp: '!authenticate'
+            state: absent
+          when: sudoers_check.rc == 0
+          ignore_errors: yes
+
+    - name: Ensure sudoers.d files contain authenticate tag
+      block:
+        - name: Check for occurrences of !authenticate tag in sudoers.d file
+          shell: "grep '!authenticate' {{ item.path }}"
+          register: sudoers_d_check
+          ignore_errors: yes
+          with_items: "{{ sudoers_files.files }}"
+          
+        - name: Replace !authenticate with authenticate in sudoers.d file
+          replace:
+            path: "{{ item.item.path }}"
+            regexp: '!authenticate'
+            replace: 'authenticate'
+          when: item.rc == 0
+          ignore_errors: yes
+          with_items: "{{ sudoers_d_check.results }}"
+      when: sudoers_files.files | length > 0
+      ignore_errors: yes
+...

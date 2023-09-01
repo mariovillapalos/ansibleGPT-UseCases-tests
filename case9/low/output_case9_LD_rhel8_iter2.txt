@@ -1,0 +1,22 @@
+
+PLAY [Configure PAM Password Policies on RHEL 8] *******************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Set minimum password length] *********************************************
+changed: [192.168.73.142]
+
+TASK [Set minimum number of required character classes] ************************
+changed: [192.168.73.142]
+
+TASK [Set time in seconds before account unlock] *******************************
+changed: [192.168.73.142]
+
+TASK [Prohibit password reuse for a minimum of five generations] ***************
+changed: [192.168.73.142]
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=5    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 19 seconds

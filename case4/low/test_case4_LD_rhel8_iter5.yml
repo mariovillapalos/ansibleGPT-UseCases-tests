@@ -1,0 +1,23 @@
+---
+- name: Configure privilege escalation with password prompt
+  hosts: rhel8
+  become: yes
+  become_method: sudo
+
+  tasks:
+    - name: Ensure password prompt for privilege escalation
+      lineinfile:
+        dest: /etc/sudoers
+        regexp: '^%wheel\s+ALL=\(ALL\)\s+ALL'
+        line: '%wheel ALL=(ALL) ALL'
+        state: present
+        validate: 'visudo -cf %s'
+
+    - name: Disallow passwordless sudo for specific command (optional)
+      lineinfile:
+        dest: /etc/sudoers
+        regexp: '^%wheel\s+ALL=\(ALL\)\s+NOPASSWD:\s+/path/to/allowed_command'
+        line: '%wheel ALL=(ALL) PASSWD: /path/to/allowed_command'
+        state: present
+        validate: 'visudo -cf %s'
+...

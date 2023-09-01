@@ -1,0 +1,36 @@
+---
+- name: Ensure re-authentication for privilege escalation is not disabled globally
+  hosts: rhel8
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Check if re-authentication for privilege escalation is not disabled
+      ansible.builtin.shell:
+        cmd: "grep -E '^\\s*Defaults\\s+!authenticate' /etc/sudoers /etc/sudoers.d/*"
+      register: sudoers_authenticate
+      changed_when: false
+      failed_when: false
+
+    - name: Enable re-authentication for privilege escalation
+      ansible.builtin.lineinfile:
+        path: "{{ item.path }}"
+        line: "Defaults    authenticate"
+        insertbefore: EOF
+      loop: "{{ sudoers_authenticate.stdout_lines }}"
+      when: sudoers_authenticate.stdout_lines | length > 0
+
+    - name: Validate sudoers configuration
+      ansible.builtin.command:
+        cmd: "visudo -c"
+      register: validate_sudoers
+      changed_when: false
+      failed_when: validate_sudoers.rc != 0
+
+    - name: Restart sudo service if configuration changed
+      ansible.builtin.service:
+        name: sudo
+        state: restarted
+      when: validate_sudoers.changed
+
+...

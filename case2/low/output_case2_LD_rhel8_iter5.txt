@@ -1,0 +1,29 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Set Password Expiration for Specific Users] ******************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Update password expiration for root, ansible, and luigi] *****************
+skipping: [192.168.73.142] => changed=false 
+  skip_reason: Conditional result was False
+
+TASK [Set password expiration for root user] ***********************************
+skipping: [192.168.73.142] => changed=false 
+  skip_reason: Conditional result was False
+
+TASK [Set password expiration for ansible user] ********************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (user) module: max_password_age. Supported parameters include: append, authorization, comment, create_home, expires, force, generate_ssh_key, group, groups, hidden, home, local, login_class, move_home, name, non_unique, password, password_expire_max, password_expire_min, password_lock, profile, remove, role, seuser, shell, skeleton, ssh_key_bits, ssh_key_comment, ssh_key_file, ssh_key_passphrase, ssh_key_type, state, system, uid, umask, update_password (createhome, user).'
+...ignoring
+
+TASK [Set password expiration for luigi user] **********************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (user) module: max_password_age. Supported parameters include: append, authorization, comment, create_home, expires, force, generate_ssh_key, group, groups, hidden, home, local, login_class, move_home, name, non_unique, password, password_expire_max, password_expire_min, password_lock, profile, remove, role, seuser, shell, skeleton, ssh_key_bits, ssh_key_comment, ssh_key_file, ssh_key_passphrase, ssh_key_type, state, system, uid, umask, update_password (createhome, user).'
+...ignoring
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=3    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=2   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 18 seconds

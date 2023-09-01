@@ -1,0 +1,34 @@
+---
+- name: Update sudoers file for password-based privilege escalation
+  hosts: rhel8
+  become: yes
+  ignore_errors: yes
+  tasks:
+    - name: Backup sudoers file
+      ansible.builtin.copy:
+        src: /etc/sudoers
+        dest: /etc/sudoers.backup
+      when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '8'
+
+    - name: Remove NOPASSWD lines from sudoers file
+      ansible.builtin.replace:
+        path: /etc/sudoers
+        regexp: '^%.*NOPASSWD.*$'
+        state: absent
+      when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '8'
+
+    - name: Replace NOPASSWD with PASSWD in sudoers file
+      ansible.builtin.replace:
+        path: /etc/sudoers
+        regexp: '^\s%wheel\s+ALL=\(ALL\)\s+NOPASSWD: ALL'
+        replace: ' '
+      when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '8'
+
+    - name: Ensure wheel group is required to provide password
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        line: '%wheel ALL=(ALL) PASSWD: ALL'
+        state: present
+        create: yes
+      when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '8'
+

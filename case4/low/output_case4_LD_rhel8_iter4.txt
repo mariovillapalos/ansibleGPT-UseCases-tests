@@ -1,0 +1,26 @@
+
+PLAY [Update sudoers file for password-based privilege escalation] *************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Backup sudoers file] *****************************************************
+fatal: [192.168.73.142]: FAILED! => 
+  msg: 'an error occurred while trying to read the file ''/etc/sudoers'': [Errno 13] Permission denied: b''/etc/sudoers''. [Errno 13] Permission denied: b''/etc/sudoers'''
+...ignoring
+
+TASK [Remove NOPASSWD lines from sudoers file] *********************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (ansible.builtin.replace) module: state. Supported parameters include: after, attributes, backup, before, encoding, group, mode, owner, path, regexp, replace, selevel, serole, setype, seuser, unsafe_writes, validate (attr, dest, destfile, name).'
+...ignoring
+
+TASK [Replace NOPASSWD with PASSWD in sudoers file] ****************************
+changed: [192.168.73.142]
+
+TASK [Ensure wheel group is required to provide password] **********************
+changed: [192.168.73.142]
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=5    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=2   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 19 seconds

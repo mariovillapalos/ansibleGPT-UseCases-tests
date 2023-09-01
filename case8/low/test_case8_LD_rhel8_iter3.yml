@@ -1,0 +1,58 @@
+---
+- name: Configure iptables on RHEL8
+  hosts: rhel8
+  become: true
+  tasks:
+    - name: Flush all existing iptables rules
+      ignore_errors: yes
+      command: iptables -F
+
+    - name: Allow ICMP (ping) traffic with rate limiting
+      iptables:
+        chain: INPUT
+        protocol: icmp
+        state: present
+        limit: "2/s"
+        jump: ACCEPT
+      ignore_errors: yes
+
+    - name: Allow SSH traffic from the manager machine
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        port: 22
+        source: 192.168.73.130
+        state: present
+        jump: ACCEPT
+      ignore_errors: yes
+
+    - name: Allow HTTP (port 80) traffic
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        port: 80
+        state: present
+        jump: ACCEPT
+      ignore_errors: yes
+
+    - name: Allow HTTPS (port 443) traffic
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        port: 443
+        state: present
+        jump: ACCEPT
+      ignore_errors: yes
+
+    - name: Set default OUTPUT policy to ACCEPT
+      iptables:
+        chain: OUTPUT
+        policy: ACCEPT
+      ignore_errors: yes
+
+    - name: Remove all INPUT traffic by default
+      iptables:
+        chain: INPUT
+        policy: DROP
+      ignore_errors: yes
+...

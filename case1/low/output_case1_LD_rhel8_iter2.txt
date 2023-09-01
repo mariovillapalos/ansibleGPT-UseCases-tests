@@ -1,0 +1,385 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Verify and Install sudo on RHEL 8] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check if sudo is installed] **********************************************
+ok: [192.168.73.142] => changed=false 
+  stat:
+    atime: 1687198065.18067
+    attr_flags: ''
+    attributes: []
+    block_size: 4096
+    blocks: 328
+    charset: binary
+    checksum: 16751e53f1a0d63c51ec1e6ccf4f5983aedc1527
+    ctime: 1677152704.1330123
+    dev: 66307
+    device_type: 0
+    executable: true
+    exists: true
+    gid: 0
+    gr_name: root
+    inode: 51538083
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: false
+    isreg: true
+    issock: false
+    isuid: true
+    mimetype: application/x-sharedlib
+    mode: '4111'
+    mtime: 1612365595.0
+    nlink: 1
+    path: /usr/bin/sudo
+    pw_name: root
+    readable: true
+    rgrp: false
+    roth: false
+    rusr: false
+    size: 165640
+    uid: 0
+    version: '1587976845'
+    wgrp: false
+    woth: false
+    writeable: true
+    wusr: false
+    xgrp: true
+    xoth: true
+    xusr: true
+
+TASK [Install sudo package] ****************************************************
+skipping: [192.168.73.142] => changed=false 
+  skip_reason: Conditional result was False
+
+TASK [Verify sudo installation] ************************************************
+ok: [192.168.73.142] => changed=false 
+  cmd:
+  - sudo
+  - --version
+  delta: '0:00:00.008471'
+  end: '2023-06-19 20:12:22.862769'
+  failed_when_result: false
+  msg: ''
+  rc: 0
+  start: '2023-06-19 20:12:22.854298'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: |-
+    Sudo version 1.8.29
+    Configure options: --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --program-prefix= --disable-dependency-tracking --prefix=/usr --exec-prefix=/usr --bindir=/usr/bin --sbindir=/usr/sbin --sysconfdir=/etc --datadir=/usr/share --includedir=/usr/include --libdir=/usr/lib64 --libexecdir=/usr/libexec --localstatedir=/var --sharedstatedir=/var/lib --mandir=/usr/share/man --infodir=/usr/share/info --prefix=/usr --sbindir=/usr/sbin --libdir=/usr/lib64 --docdir=/usr/share/doc/sudo --disable-root-mailer --with-logging=syslog --with-logfac=authpriv --with-pam --with-pam-login --with-editor=/bin/vi --with-env-editor --with-ignore-dot --with-tty-tickets --with-ldap --with-ldap-conf-file=/etc/sudo-ldap.conf --with-selinux --with-passprompt=[sudo] password for %p:  --with-linux-audit --with-sssd
+    Sudoers policy plugin version 1.8.29
+    Sudoers file grammar version 46
+  
+    Sudoers path: /etc/sudoers
+    nsswitch path: /etc/nsswitch.conf
+    ldap.conf path: /etc/sudo-ldap.conf
+    ldap.secret path: /etc/ldap.secret
+    Authentication methods: 'pam'
+    Syslog facility if syslog is being used for logging: authpriv
+    Syslog priority to use when user authenticates successfully: notice
+    Syslog priority to use when user authenticates unsuccessfully: alert
+    Ignore '.' in $PATH
+    Send mail if the user is not in sudoers
+    Lecture user the first time they run sudo
+    Require users to authenticate by default
+    Root may run sudo
+    Always set $HOME to the target user's home directory
+    Allow some information gathering to give useful error messages
+    Visudo will honor the EDITOR environment variable
+    Set the LOGNAME and USER environment variables
+    Length at which to wrap log file lines (0 for no wrap): 80
+    Authentication timestamp timeout: 5.0 minutes
+    Password prompt timeout: 5.0 minutes
+    Number of tries to enter a password: 3
+    Umask to use or 0777 to use user's: 022
+    Path to mail program: /usr/sbin/sendmail
+    Flags for mail program: -t
+    Address to send mail to: root
+    Subject line for mail messages: *** SECURITY information for %h ***
+    Incorrect password message: Sorry, try again.
+    Path to lecture status dir: /var/db/sudo/lectured
+    Path to authentication timestamp dir: /run/sudo/ts
+    Default password prompt: [sudo] password for %p:
+    Default user to run commands as: root
+    Value to override user's $PATH with: /sbin:/bin:/usr/sbin:/usr/bin
+    Path to the editor for use by visudo: /bin/vi
+    When to require a password for 'list' pseudocommand: any
+    When to require a password for 'verify' pseudocommand: all
+    File descriptors >= 3 will be closed before executing a command
+    Reset the environment to a default set of variables
+    Environment variables to check for sanity:
+            TZ
+            TERM
+            LINGUAS
+            LC_*
+            LANGUAGE
+            LANG
+            COLORTERM
+    Environment variables to remove:
+            *=()*
+            RUBYOPT
+            RUBYLIB
+            PYTHONUSERBASE
+            PYTHONINSPECT
+            PYTHONPATH
+            PYTHONHOME
+            TMPPREFIX
+            ZDOTDIR
+            READNULLCMD
+            NULLCMD
+            FPATH
+            PERL5DB
+            PERL5OPT
+            PERL5LIB
+            PERLLIB
+            PERLIO_DEBUG
+            JAVA_TOOL_OPTIONS
+            SHELLOPTS
+            BASHOPTS
+            GLOBIGNORE
+            PS4
+            BASH_ENV
+            ENV
+            TERMCAP
+            TERMPATH
+            TERMINFO_DIRS
+            TERMINFO
+            _RLD*
+            LD_*
+            PATH_LOCALE
+            NLSPATH
+            HOSTALIASES
+            RES_OPTIONS
+            LOCALDOMAIN
+            CDPATH
+            IFS
+    Environment variables to preserve:
+            XAUTHORITY
+            _XKB_CHARSET
+            LINGUAS
+            LANGUAGE
+            LC_ALL
+            LC_TIME
+            LC_TELEPHONE
+            LC_PAPER
+            LC_NUMERIC
+            LC_NAME
+            LC_MONETARY
+            LC_MESSAGES
+            LC_MEASUREMENT
+            LC_IDENTIFICATION
+            LC_COLLATE
+            LC_CTYPE
+            LC_ADDRESS
+            LANG
+            USERNAME
+            QTDIR
+            PS2
+            PS1
+            MAIL
+            LS_COLORS
+            KDEDIR
+            HISTSIZE
+            HOSTNAME
+            DISPLAY
+            COLORS
+    Locale to use while parsing sudoers: C
+    Compress I/O logs using zlib
+    Directory in which to store input/output logs: /var/log/sudo-io
+    File in which to store the input/output log: %{seq}
+    Add an entry to the utmp/utmpx file when allocating a pty
+    PAM service name to use: sudo
+    PAM service name to use for login shells: sudo-i
+    Attempt to establish PAM credentials for the target user
+    Create a new PAM session for the command to run in
+    Perform PAM account validation management
+    Maximum I/O log sequence number: 0
+    Enable sudoers netgroup support
+    Check parent directories for writability when editing files with sudoedit
+    Query the group plugin for unknown system groups
+    Allow commands to be run even if sudo cannot write to the audit log
+    Allow commands to be run even if sudo cannot write to the log file
+    Resolve groups in sudoers and match on the group ID, not the name
+    Log entries larger than this value will be split into multiple syslog messages: 960
+    File mode to use for the I/O log files: 0600
+    Execute commands by file descriptor instead of by path: digest_only
+    Type of authentication timestamp record: tty
+    Ignore case when matching user names
+    Ignore case when matching group names
+    Log when a command is allowed by sudoers
+    Log when a command is denied by sudoers
+    Don't pre-resolve all group names
+  
+    Local IP address and netmask pairs:
+            192.168.73.142/255.255.255.0
+            192.168.122.1/255.255.255.0
+            fe80::20c:29ff:fe4a:7bd0/ffff:ffff:ffff:ffff::
+  
+    Sudoers I/O plugin version 1.8.29
+  stdout_lines: <omitted>
+
+TASK [Display sudo version] ****************************************************
+ok: [192.168.73.142] => 
+  sudo_version.stdout: |-
+    Sudo version 1.8.29
+    Configure options: --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --program-prefix= --disable-dependency-tracking --prefix=/usr --exec-prefix=/usr --bindir=/usr/bin --sbindir=/usr/sbin --sysconfdir=/etc --datadir=/usr/share --includedir=/usr/include --libdir=/usr/lib64 --libexecdir=/usr/libexec --localstatedir=/var --sharedstatedir=/var/lib --mandir=/usr/share/man --infodir=/usr/share/info --prefix=/usr --sbindir=/usr/sbin --libdir=/usr/lib64 --docdir=/usr/share/doc/sudo --disable-root-mailer --with-logging=syslog --with-logfac=authpriv --with-pam --with-pam-login --with-editor=/bin/vi --with-env-editor --with-ignore-dot --with-tty-tickets --with-ldap --with-ldap-conf-file=/etc/sudo-ldap.conf --with-selinux --with-passprompt=[sudo] password for %p:  --with-linux-audit --with-sssd
+    Sudoers policy plugin version 1.8.29
+    Sudoers file grammar version 46
+  
+    Sudoers path: /etc/sudoers
+    nsswitch path: /etc/nsswitch.conf
+    ldap.conf path: /etc/sudo-ldap.conf
+    ldap.secret path: /etc/ldap.secret
+    Authentication methods: 'pam'
+    Syslog facility if syslog is being used for logging: authpriv
+    Syslog priority to use when user authenticates successfully: notice
+    Syslog priority to use when user authenticates unsuccessfully: alert
+    Ignore '.' in $PATH
+    Send mail if the user is not in sudoers
+    Lecture user the first time they run sudo
+    Require users to authenticate by default
+    Root may run sudo
+    Always set $HOME to the target user's home directory
+    Allow some information gathering to give useful error messages
+    Visudo will honor the EDITOR environment variable
+    Set the LOGNAME and USER environment variables
+    Length at which to wrap log file lines (0 for no wrap): 80
+    Authentication timestamp timeout: 5.0 minutes
+    Password prompt timeout: 5.0 minutes
+    Number of tries to enter a password: 3
+    Umask to use or 0777 to use user's: 022
+    Path to mail program: /usr/sbin/sendmail
+    Flags for mail program: -t
+    Address to send mail to: root
+    Subject line for mail messages: *** SECURITY information for %h ***
+    Incorrect password message: Sorry, try again.
+    Path to lecture status dir: /var/db/sudo/lectured
+    Path to authentication timestamp dir: /run/sudo/ts
+    Default password prompt: [sudo] password for %p:
+    Default user to run commands as: root
+    Value to override user's $PATH with: /sbin:/bin:/usr/sbin:/usr/bin
+    Path to the editor for use by visudo: /bin/vi
+    When to require a password for 'list' pseudocommand: any
+    When to require a password for 'verify' pseudocommand: all
+    File descriptors >= 3 will be closed before executing a command
+    Reset the environment to a default set of variables
+    Environment variables to check for sanity:
+            TZ
+            TERM
+            LINGUAS
+            LC_*
+            LANGUAGE
+            LANG
+            COLORTERM
+    Environment variables to remove:
+            *=()*
+            RUBYOPT
+            RUBYLIB
+            PYTHONUSERBASE
+            PYTHONINSPECT
+            PYTHONPATH
+            PYTHONHOME
+            TMPPREFIX
+            ZDOTDIR
+            READNULLCMD
+            NULLCMD
+            FPATH
+            PERL5DB
+            PERL5OPT
+            PERL5LIB
+            PERLLIB
+            PERLIO_DEBUG
+            JAVA_TOOL_OPTIONS
+            SHELLOPTS
+            BASHOPTS
+            GLOBIGNORE
+            PS4
+            BASH_ENV
+            ENV
+            TERMCAP
+            TERMPATH
+            TERMINFO_DIRS
+            TERMINFO
+            _RLD*
+            LD_*
+            PATH_LOCALE
+            NLSPATH
+            HOSTALIASES
+            RES_OPTIONS
+            LOCALDOMAIN
+            CDPATH
+            IFS
+    Environment variables to preserve:
+            XAUTHORITY
+            _XKB_CHARSET
+            LINGUAS
+            LANGUAGE
+            LC_ALL
+            LC_TIME
+            LC_TELEPHONE
+            LC_PAPER
+            LC_NUMERIC
+            LC_NAME
+            LC_MONETARY
+            LC_MESSAGES
+            LC_MEASUREMENT
+            LC_IDENTIFICATION
+            LC_COLLATE
+            LC_CTYPE
+            LC_ADDRESS
+            LANG
+            USERNAME
+            QTDIR
+            PS2
+            PS1
+            MAIL
+            LS_COLORS
+            KDEDIR
+            HISTSIZE
+            HOSTNAME
+            DISPLAY
+            COLORS
+    Locale to use while parsing sudoers: C
+    Compress I/O logs using zlib
+    Directory in which to store input/output logs: /var/log/sudo-io
+    File in which to store the input/output log: %{seq}
+    Add an entry to the utmp/utmpx file when allocating a pty
+    PAM service name to use: sudo
+    PAM service name to use for login shells: sudo-i
+    Attempt to establish PAM credentials for the target user
+    Create a new PAM session for the command to run in
+    Perform PAM account validation management
+    Maximum I/O log sequence number: 0
+    Enable sudoers netgroup support
+    Check parent directories for writability when editing files with sudoedit
+    Query the group plugin for unknown system groups
+    Allow commands to be run even if sudo cannot write to the audit log
+    Allow commands to be run even if sudo cannot write to the log file
+    Resolve groups in sudoers and match on the group ID, not the name
+    Log entries larger than this value will be split into multiple syslog messages: 960
+    File mode to use for the I/O log files: 0600
+    Execute commands by file descriptor instead of by path: digest_only
+    Type of authentication timestamp record: tty
+    Ignore case when matching user names
+    Ignore case when matching group names
+    Log when a command is allowed by sudoers
+    Log when a command is denied by sudoers
+    Don't pre-resolve all group names
+  
+    Local IP address and netmask pairs:
+            192.168.73.142/255.255.255.0
+            192.168.122.1/255.255.255.0
+            fe80::20c:29ff:fe4a:7bd0/ffff:ffff:ffff:ffff::
+  
+    Sudoers I/O plugin version 1.8.29
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=4    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 19 seconds

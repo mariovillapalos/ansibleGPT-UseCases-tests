@@ -1,0 +1,196 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Configure iptables on RHEL 8] ********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Flush all iptables rules] ************************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -F
+  delta: '0:00:00.005648'
+  end: '2023-08-17 02:43:19.442710'
+  msg: ''
+  rc: 0
+  start: '2023-08-17 02:43:19.437062'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Allow established connections] *******************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -A
+  - INPUT
+  - -m
+  - conntrack
+  - --ctstate
+  - RELATED,ESTABLISHED
+  - -j
+  - ACCEPT
+  delta: '0:00:00.006640'
+  end: '2023-08-17 02:43:19.925814'
+  msg: ''
+  rc: 0
+  start: '2023-08-17 02:43:19.919174'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Allow loopback interface] ************************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -A
+  - INPUT
+  - -i
+  - lo
+  - -j
+  - ACCEPT
+  delta: '0:00:00.003973'
+  end: '2023-08-17 02:43:20.398649'
+  msg: ''
+  rc: 0
+  start: '2023-08-17 02:43:20.394676'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Allow ICMP (ping) with rate limiting] ************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -A
+  - INPUT
+  - -p
+  - icmp
+  - --icmp-type
+  - echo-request
+  - -m
+  - limit
+  - --limit
+  - 1/s
+  - -j
+  - ACCEPT
+  delta: '0:00:00.058632'
+  end: '2023-08-17 02:43:20.926430'
+  msg: ''
+  rc: 0
+  start: '2023-08-17 02:43:20.867798'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Allow SSH traffic from specific IP] **************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -A
+  - INPUT
+  - -p
+  - tcp
+  - --dport
+  - '22'
+  - -s
+  - 192.168.73.130
+  - -j
+  - ACCEPT
+  delta: '0:00:00.005021'
+  end: '2023-08-17 02:43:21.397860'
+  msg: ''
+  rc: 0
+  start: '2023-08-17 02:43:21.392839'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Allow HTTP (port 80) traffic] ********************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -A
+  - INPUT
+  - -p
+  - tcp
+  - --dport
+  - '80'
+  - -j
+  - ACCEPT
+  delta: '0:00:00.003794'
+  end: '2023-08-17 02:43:21.867020'
+  msg: ''
+  rc: 0
+  start: '2023-08-17 02:43:21.863226'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Allow HTTPS (port 443) traffic] ******************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -A
+  - INPUT
+  - -p
+  - tcp
+  - --dport
+  - '443'
+  - -j
+  - ACCEPT
+  delta: '0:00:00.003650'
+  end: '2023-08-17 02:43:22.334674'
+  msg: ''
+  rc: 0
+  start: '2023-08-17 02:43:22.331024'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Accept all output traffic] ***********************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -P
+  - OUTPUT
+  - ACCEPT
+  delta: '0:00:00.003687'
+  end: '2023-08-17 02:43:22.799152'
+  msg: ''
+  rc: 0
+  start: '2023-08-17 02:43:22.795465'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Set default policies] ****************************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -P
+  - INPUT
+  - DROP
+  delta: '0:00:00.003970'
+  end: '2023-08-17 02:43:23.267508'
+  msg: ''
+  rc: 0
+  start: '2023-08-17 02:43:23.263538'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=10   changed=9    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 21 seconds

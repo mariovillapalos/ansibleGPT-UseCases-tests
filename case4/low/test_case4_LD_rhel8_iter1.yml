@@ -1,0 +1,16 @@
+---
+- name: Ensure password is required for privilege escalation
+  hosts: rhel8
+  become: true
+  tasks:
+    - name: Remove NOPASSWD entries from sudoers file
+      lineinfile:
+        path: /etc/sudoers
+        regexp: '^\s*%wheel\s+ALL=\(ALL\)\s+NOPASSWD:'
+        state: absent
+
+    - name: Replace NOPASSWD with PASSWD for wheel group in sudoers file
+      lineinfile:
+        path: /etc/sudoers
+        regexp: '^\s*%wheel\s+ALL=\(ALL\)\s+NOPASSWD:'
+        line: '%wheel ALL=(ALL) ALL'

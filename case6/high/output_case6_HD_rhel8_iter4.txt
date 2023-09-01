@@ -1,0 +1,107 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Ensure gpgcheck is globally activated] ***********************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check /etc/yum.conf for gpgcheck settings] *******************************
+ok: [192.168.73.142] => changed=false 
+  cmd: cat /etc/yum.conf | grep -E '^gpgcheck\s*='
+  delta: '0:00:00.003982'
+  end: '2023-06-23 12:42:06.793974'
+  failed_when_result: false
+  msg: ''
+  rc: 0
+  start: '2023-06-23 12:42:06.789992'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: gpgcheck = 0
+  stdout_lines: <omitted>
+
+TASK [Modify gpgcheck settings in /etc/yum.conf] *******************************
+changed: [192.168.73.142] => changed=true 
+  backup: /etc/yum.conf.12669.2023-06-23@12:42:07~
+  msg: line replaced
+
+TASK [Find files in /etc/yum.repos.d/] *****************************************
+ok: [192.168.73.142] => changed=false 
+  examined: 3
+  files:
+  - atime: 1687516088.3258243
+    ctime: 1687516041.218253
+    dev: 66307
+    gid: 0
+    gr_name: root
+    inode: 34508471
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: false
+    isreg: true
+    issock: false
+    isuid: false
+    mode: '0644'
+    mtime: 1687516041.217253
+    nlink: 1
+    path: /etc/yum.repos.d/redhat.repo
+    pw_name: root
+    rgrp: true
+    roth: true
+    rusr: true
+    size: 207089
+    uid: 0
+    wgrp: false
+    woth: false
+    wusr: true
+    xgrp: false
+    xoth: false
+    xusr: false
+  matched: 1
+  msg: All paths examined
+  skipped_paths: {}
+
+TASK [Modify gpgcheck settings in yum repository files] ************************
+ok: [192.168.73.142] => (item={'path': '/etc/yum.repos.d/redhat.repo', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 207089, 'inode': 34508471, 'dev': 66307, 'nlink': 1, 'atime': 1687516088.3258243, 'mtime': 1687516041.217253, 'ctime': 1687516041.218253, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}) => changed=false 
+  ansible_loop_var: item
+  backup: ''
+  item:
+    atime: 1687516088.3258243
+    ctime: 1687516041.218253
+    dev: 66307
+    gid: 0
+    gr_name: root
+    inode: 34508471
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: false
+    isreg: true
+    issock: false
+    isuid: false
+    mode: '0644'
+    mtime: 1687516041.217253
+    nlink: 1
+    path: /etc/yum.repos.d/redhat.repo
+    pw_name: root
+    rgrp: true
+    roth: true
+    rusr: true
+    size: 207089
+    uid: 0
+    wgrp: false
+    woth: false
+    wusr: true
+    xgrp: false
+    xoth: false
+    xusr: false
+  msg: ''
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 19 seconds

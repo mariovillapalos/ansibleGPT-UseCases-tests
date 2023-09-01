@@ -1,0 +1,69 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Ensure filesystem integrity using AIDE] **********************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check if AIDE is installed] **********************************************
+ok: [192.168.73.142] => changed=false 
+  cmd:
+  - rpm
+  - -q
+  - aide
+  delta: '0:00:00.021372'
+  end: '2023-08-15 22:38:23.516747'
+  failed_when_result: false
+  msg: non-zero return code
+  rc: 1
+  start: '2023-08-15 22:38:23.495375'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: package aide is not installed
+  stdout_lines: <omitted>
+
+TASK [Install AIDE if not installed] *******************************************
+changed: [192.168.73.142] => changed=true 
+  msg: ''
+  rc: 0
+  results:
+  - 'Installed: aide-0.16-14.el8_5.1.x86_64'
+
+TASK [Initialize AIDE] *********************************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  cmd: aideinit --yes
+  msg: '[Errno 2] No such file or directory: b''aideinit'': b''aideinit'''
+  rc: 2
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+...ignoring
+
+TASK [Rename AIDE database] ****************************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  cmd:
+  - mv
+  - /var/lib/aide/aide.db.new.gz
+  - /var/lib/aide/aide.db.gz
+  delta: '0:00:00.003626'
+  end: '2023-08-15 22:38:57.632610'
+  msg: non-zero return code
+  rc: 1
+  start: '2023-08-15 22:38:57.628984'
+  stderr: 'mv: cannot stat ''/var/lib/aide/aide.db.new.gz'': No such file or directory'
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+...ignoring
+
+TASK [Schedule AIDE check as a cron job] ***************************************
+changed: [192.168.73.142] => changed=true 
+  envs: []
+  jobs:
+  - Run AIDE check
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=6    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=2   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 52 seconds

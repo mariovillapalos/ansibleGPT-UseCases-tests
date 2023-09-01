@@ -1,0 +1,17 @@
+---
+- name: Check and enable gpgcheck in YUM configuration
+  hosts: rhel8
+  become: yes
+  tasks:
+    - name: Check current gpgcheck status
+      shell: grep -q '^gpgcheck=0' /etc/yum.conf && echo "disabled" || echo "enabled"
+      register: gpgcheck_status
+      changed_when: false
+    
+    - name: Enable gpgcheck if disabled
+      lineinfile:
+        path: /etc/yum.conf
+        regexp: '^gpgcheck=0'
+        line: 'gpgcheck=1'
+      when: gpgcheck_status.stdout == "disabled"
+...

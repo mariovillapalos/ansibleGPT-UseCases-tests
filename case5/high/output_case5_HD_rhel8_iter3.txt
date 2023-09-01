@@ -1,0 +1,117 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Ensure re-authentication for privilege escalation is not disabled globally] ***
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Find all files in /etc/sudoers.d] ****************************************
+ok: [192.168.73.142] => changed=false 
+  examined: 3
+  files:
+  - atime: 1691092285.9885058
+    ctime: 1691092256.7311578
+    dev: 66307
+    gid: 0
+    gr_name: root
+    inode: 18713026
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: false
+    isreg: true
+    issock: false
+    isuid: false
+    mode: '0644'
+    mtime: 1691092256.7311578
+    nlink: 1
+    path: /etc/sudoers.d/ansible
+    pw_name: root
+    rgrp: true
+    roth: true
+    rusr: true
+    size: 56
+    uid: 0
+    wgrp: false
+    woth: false
+    wusr: true
+    xgrp: false
+    xoth: false
+    xusr: false
+  matched: 1
+  msg: All paths examined
+  skipped_paths: {}
+
+TASK [Gather contents of /etc/sudoers and sudoers.d files] *********************
+ok: [192.168.73.142] => (item={'path': '/etc/sudoers.d/ansible', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 56, 'inode': 18713026, 'dev': 66307, 'nlink': 1, 'atime': 1691092285.9885058, 'mtime': 1691092256.7311578, 'ctime': 1691092256.7311578, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}) => changed=false 
+  ansible_loop_var: item
+  content: RGVmYXVsdHMgIWF1dGhlbnRpY2F0ZQoKYW5zaWJsZSBBTEw9KEFMTCkgTk9QQVNTV0Q6IEFMTAo=
+  encoding: base64
+  item:
+    atime: 1691092285.9885058
+    ctime: 1691092256.7311578
+    dev: 66307
+    gid: 0
+    gr_name: root
+    inode: 18713026
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: false
+    isreg: true
+    issock: false
+    isuid: false
+    mode: '0644'
+    mtime: 1691092256.7311578
+    nlink: 1
+    path: /etc/sudoers.d/ansible
+    pw_name: root
+    rgrp: true
+    roth: true
+    rusr: true
+    size: 56
+    uid: 0
+    wgrp: false
+    woth: false
+    wusr: true
+    xgrp: false
+    xoth: false
+    xusr: false
+  source: /etc/sudoers.d/ansible
+
+TASK [Extract content from slurp result] ***************************************
+ok: [192.168.73.142] => changed=false 
+  ansible_facts:
+    file_contents_dict:
+    - RGVmYXVsdHMgIWF1dGhlbnRpY2F0ZQoKYW5zaWJsZSBBTEw9KEFMTCkgTk9QQVNTV0Q6IEFMTAo=
+
+TASK [Check for occurrences of !authenticate in sudoers files] *****************
+ok: [192.168.73.142] => (item=RGVmYXVsdHMgIWF1dGhlbnRpY2F0ZQoKYW5zaWJsZSBBTEw9KEFMTCkgTk9QQVNTV0Q6IEFMTAo=) => changed=false 
+  ansible_facts:
+    authenticate_occurrences: []
+  ansible_loop_var: item
+  item: RGVmYXVsdHMgIWF1dGhlbnRpY2F0ZQoKYW5zaWJsZSBBTEw9KEFMTCkgTk9QQVNTV0Q6IEFMTAo=
+
+TASK [Remove occurrences of !authenticate in sudoers files] ********************
+fatal: [192.168.73.142]: FAILED! => 
+  msg: |-
+    The conditional check 'item.1 | length > 0' failed. The error was: Unexpected templating type error occurred on ({% if item.1 | length > 0 %} True {% else %} False {% endif %}): object of type 'NoneType' has no len(). object of type 'NoneType' has no len()
+  
+    The error appears to be in '/home/mario/Documents/tfm/use-cases-ansible-GPT/use-cases/rhel8/playbooks-iterations/case7/high/test_case7_HD_rhel8_iter3.yml': line 31, column 7, but may
+    be elsewhere in the file depending on the exact syntax problem.
+  
+    The offending line appears to be:
+  
+  
+        - name: Remove occurrences of !authenticate in sudoers files
+          ^ here
+...ignoring
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 18 seconds

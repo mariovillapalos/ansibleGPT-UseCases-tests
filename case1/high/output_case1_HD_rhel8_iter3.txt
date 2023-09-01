@@ -1,0 +1,39 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Verify and Install sudo] *************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check if sudo is installed] **********************************************
+ok: [192.168.73.142] => changed=false 
+  cmd:
+  - dnf
+  - list
+  - sudo
+  delta: '0:00:22.831330'
+  end: '2023-06-19 20:16:01.374758'
+  msg: ''
+  rc: 0
+  start: '2023-06-19 20:15:38.543428'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: |-
+    Updating Subscription Management repositories.
+    Red Hat Enterprise Linux 8 for x86_64 - BaseOS   35 MB/s |  61 MB     00:01
+    Red Hat Enterprise Linux 8 for x86_64 - AppStre  39 MB/s |  57 MB     00:01
+    Last metadata expiration check: 0:00:01 ago on Mon 19 Jun 2023 08:15:45 PM CEST.
+    Installed Packages
+    sudo.x86_64             1.8.29-7.el8               @anaconda
+    Available Packages
+    sudo.x86_64             1.8.29-10.el8              rhel-8-for-x86_64-baseos-rpms
+  stdout_lines: <omitted>
+
+TASK [Install sudo package] ****************************************************
+skipping: [192.168.73.142] => changed=false 
+  skip_reason: Conditional result was False
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 41 seconds

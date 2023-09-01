@@ -1,0 +1,50 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Check and enable gpgcheck on RHEL8 hosts] ********************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check current status of gpgcheck] ****************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  cmd:
+  - cat
+  - /etc/yum.conf
+  - '|'
+  - grep
+  - -E
+  - gpgcheck\s*=\s*1
+  delta: '0:00:00.004534'
+  end: '2023-08-14 22:47:31.111574'
+  msg: non-zero return code
+  rc: 1
+  start: '2023-08-14 22:47:31.107040'
+  stderr: |-
+    cat: '|': No such file or directory
+    cat: grep: No such file or directory
+    cat: 'gpgcheck\s*=\s*1': No such file or directory
+  stderr_lines: <omitted>
+  stdout: |-
+    [main]$
+    gpgcheck=0$
+    installonly_limit=3$
+    clean_requirements_on_remove=True$
+    best=True$
+    skip_if_unavailable=False$
+  stdout_lines: <omitted>
+...ignoring
+
+TASK [Enable gpgcheck if it's disabled] ****************************************
+changed: [192.168.73.142] => changed=true 
+  backup: ''
+  msg: line replaced
+
+RUNNING HANDLER [restart_yum] **************************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Could not find the requested service yum-cron: host'
+...ignoring
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=2   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 19 seconds

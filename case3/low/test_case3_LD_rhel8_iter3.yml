@@ -1,0 +1,22 @@
+---
+- name: Disable IP Forwarding on RHEL 8
+  hosts: rhel8
+  become: true
+  ignore_errors: yes
+  tasks:
+    - name: Ensure IP forwarding is disabled
+      sysctl:
+        name: net.ipv4.ip_forward
+        value: 0
+        state: present
+      notify: Restart Networking
+      tags:
+        - ip_forwarding
+
+  handlers:
+    - name: Restart Networking
+      service:
+        name: network
+        state: restarted
+      when: ansible_os_family == 'RedHat'
+...

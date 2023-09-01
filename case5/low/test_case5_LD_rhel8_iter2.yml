@@ -1,0 +1,24 @@
+---
+- name: Check and enable sudo authentication
+  hosts: rhel8
+  gather_facts: true
+  become: true
+  become_method: sudo
+  ignore_errors: yes
+
+  tasks:
+    - name: Check if authentication when elevating privileges with sudo is disabled
+      shell: "grep -E '^\\s*Defaults\\s+!authenticate' /etc/sudoers && echo 'disabled' || echo 'enabled'"
+      register: sudo_auth_status
+
+    - name: Enable sudo authentication if disabled
+      lineinfile:
+        path: /etc/sudoers
+        line: 'Defaults authenticate'
+        state: present
+      when: sudo_auth_status.stdout == 'disabled'
+
+    - name: Print status
+      debug:
+        msg: "Authentication when elevating privileges with sudo is {{ sudo_auth_status.stdout }}"
+...

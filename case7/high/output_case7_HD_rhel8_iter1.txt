@@ -1,0 +1,94 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Ensure filesystem integrity using AIDE] **********************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Verify AIDE is not installed] ********************************************
+ok: [192.168.73.142] => changed=false 
+  cmd:
+  - rpm
+  - -q
+  - aide
+  delta: '0:00:00.015804'
+  end: '2023-06-26 12:21:15.205224'
+  failed_when_result: false
+  msg: non-zero return code
+  rc: 1
+  start: '2023-06-26 12:21:15.189420'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: package aide is not installed
+  stdout_lines: <omitted>
+
+TASK [Install AIDE if not installed] *******************************************
+changed: [192.168.73.142] => changed=true 
+  msg: ''
+  rc: 0
+  results:
+  - 'Installed: aide-0.16-14.el8_5.1.x86_64'
+
+TASK [Initialize AIDE database] ************************************************
+ok: [192.168.73.142] => changed=false 
+  cmd:
+  - aide
+  - --init
+  delta: '0:01:02.574285'
+  end: '2023-06-26 12:22:59.103169'
+  msg: ''
+  rc: 0
+  start: '2023-06-26 12:21:56.528884'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: |-
+    Start timestamp: 2023-06-26 12:21:56 +0200 (AIDE 0.16)
+    AIDE initialized database at /var/lib/aide/aide.db.new.gz
+  
+    Number of entries:      129554
+  
+    ---------------------------------------------------
+    The attributes of the (uncompressed) database(s):
+    ---------------------------------------------------
+  
+    /var/lib/aide/aide.db.new.gz
+      MD5      : 3iMZ3cWXhPuTo4JCZe97UA==
+      SHA1     : X+LQK/nrRtH3iuxGDXxZ5VOeH5k=
+      RMD160   : wGPjQiSnguR50C0IN7YtZEXIIbA=
+      TIGER    : qcA50K4tg253U18edibC/I6mdEuwg4AR
+      SHA256   : DHkrfWifrqzcBgZw1CaBmWuqNMqr//cL
+                 ql4Xy3vG4NM=
+      SHA512   : 1vnb9+bhtLyXhiMfPBdGjQyjbHAaZNWR
+                 HS8BYytBpya+01bK+RWJv6eU1qa5MnHK
+                 GI7g8VEG+OfDJNQ4q3ZSpw==
+  
+  
+    End timestamp: 2023-06-26 12:22:59 +0200 (run time: 1m 3s)
+  stdout_lines: <omitted>
+
+TASK [Rename AIDE database] ****************************************************
+ok: [192.168.73.142] => changed=false 
+  cmd:
+  - mv
+  - /var/lib/aide/aide.db.new.gz
+  - /var/lib/aide/aide.db.gz
+  delta: '0:00:00.007683'
+  end: '2023-06-26 12:22:59.884880'
+  msg: ''
+  rc: 0
+  start: '2023-06-26 12:22:59.877197'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Schedule AIDE check using cron] ******************************************
+ok: [192.168.73.142] => changed=false 
+  envs: []
+  jobs:
+  - Run AIDE check daily at 5am
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=6    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 2 minutes, 3 seconds

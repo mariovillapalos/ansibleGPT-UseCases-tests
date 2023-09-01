@@ -1,0 +1,36 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Check and enable sudo authentication] ************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check if authentication when elevating privileges with sudo is disabled] ***
+changed: [192.168.73.142] => changed=true 
+  cmd: grep -E '^\s*Defaults\s+!authenticate' /etc/sudoers && echo 'disabled' || echo 'enabled'
+  delta: '0:00:00.005879'
+  end: '2023-08-03 22:08:46.144066'
+  msg: ''
+  rc: 0
+  start: '2023-08-03 22:08:46.138187'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: |-
+    Defaults !authenticate
+    disabled
+  stdout_lines: <omitted>
+
+TASK [Enable sudo authentication if disabled] **********************************
+skipping: [192.168.73.142] => changed=false 
+  skip_reason: Conditional result was False
+
+TASK [Print status] ************************************************************
+ok: [192.168.73.142] => 
+  msg: |-
+    Authentication when elevating privileges with sudo is Defaults !authenticate
+    disabled
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=3    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 17 seconds

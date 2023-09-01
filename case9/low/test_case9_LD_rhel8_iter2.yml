@@ -1,0 +1,36 @@
+- name: Configure PAM Password Policies on RHEL 8
+  hosts: rhel8
+  become: yes
+  tasks:
+    - name: Set minimum password length
+      blockinfile:
+        path: /etc/security/pwquality.conf
+        marker: "# {mark} ANSIBLE MANAGED BLOCK - Minimum Password Length"
+        block: |
+          minlen = 14
+      ignore_errors: yes
+
+    - name: Set minimum number of required character classes
+      blockinfile:
+        path: /etc/security/pwquality.conf
+        marker: "# {mark} ANSIBLE MANAGED BLOCK - Minimum Number of Character Classes"
+        block: |
+          minclass = 4
+      ignore_errors: yes
+
+    - name: Set time in seconds before account unlock
+      blockinfile:
+        path: /etc/security/pwquality.conf
+        marker: "# {mark} ANSIBLE MANAGED BLOCK - Account Unlock Time"
+        block: |
+          retrydelay = 600
+      ignore_errors: yes
+
+    - name: Prohibit password reuse for a minimum of five generations
+      lineinfile:
+        path: /etc/security/pwquality.conf
+        regexp: '^remember'
+        line: "remember = 5"
+        state: present
+      ignore_errors: yes
+...

@@ -1,0 +1,25 @@
+---
+- name: Ensure password expiration is 365 days or less
+  hosts: rhel8
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Update /etc/login.defs
+      become: yes
+      lineinfile:
+        path: /etc/login.defs
+        regexp: '^PASS_MAX_DAYS'
+        line: 'PASS_MAX_DAYS 365'
+        backup: yes
+
+    - name: Set password expiration for root, ansible, and luigi
+      become: yes
+      user:
+        name: "{{ item }}"
+        max_password_age: 365
+      loop:
+        - root
+        - ansible
+        - luigi
+...

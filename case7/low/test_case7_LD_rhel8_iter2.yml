@@ -1,0 +1,28 @@
+---
+- name: Configure AIDE for Filesystem Integrity
+  hosts: rhel8
+  ignore_errors: yes
+  become: true
+  tasks:
+    - name: Install AIDE package
+      yum:
+        name: aide
+        state: present
+
+    - name: Initialize AIDE database
+      command: aideinit --yes
+      args:
+        creates: /var/lib/aide/aide.db.new.gz
+
+    - name: Move AIDE database to proper location
+      command: mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
+      args:
+        creates: /var/lib/aide/aide.db.gz
+
+    - name: Create AIDE cron job
+      cron:
+        name: Run AIDE integrity check
+        minute: 0
+        hour: 5
+        job: "/usr/sbin/aide --check"
+...

@@ -1,0 +1,42 @@
+---
+- name: Ensure re-authentication for privilege escalation is not disabled globally
+  hosts: rhel8
+  gather_facts: yes
+  become: yes
+
+  tasks:
+    - name: Find all files in /etc/sudoers.d
+      find:
+        paths: /etc/sudoers.d
+        patterns: '*'
+      register: sudoers_files
+      ignore_errors: yes
+
+    - name: Gather contents of /etc/sudoers and sudoers.d files
+      slurp:
+        path: "{{ item.path }}"
+      register: file_contents
+      with_items: "{{ sudoers_files.files }}"
+      ignore_errors: yes
+
+    - name: Extract content from slurp result
+      set_fact:
+        file_contents_dict: "{{ file_contents.results | map(attribute='content') | list }}"
+
+    - name: Check for occurrences of !authenticate in sudoers files
+      set_fact:
+        authenticate_occurrences: "{{ authenticate_occurrences | default([]) + item | regex_findall('!authenticate') }}"
+      with_items: "{{ file_contents_dict }}"
+
+    - name: Remove occurrences of !authenticate in sudoers files
+      lineinfile:
+        path: "{{ item.0 }}"
+        regexp: '(!authenticate)'
+        line: "authenticate"
+      with_together:
+        - "{{ sudoers_files.files | map(attribute='path') | list }}"
+        - "{{ authenticate_occurrences }}"
+      when: item.1 | length > 0
+      ignore_errors: yes
+
+...

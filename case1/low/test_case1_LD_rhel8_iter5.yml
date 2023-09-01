@@ -1,0 +1,22 @@
+---
+- name: Verify and install sudo on RHEL 8
+  hosts: rhel8
+  become: true
+  tasks:
+    - name: Check if sudo is installed
+      shell: "rpm -q sudo"
+      register: sudo_installed
+      ignore_errors: true
+
+    - name: Install sudo if not installed
+      yum:
+        name: sudo
+        state: present
+      when: sudo_installed.rc != 0
+
+    - name: Verify sudo installation
+      assert:
+        that:
+          - sudo_installed.rc == 0
+        msg: "Sudo installation failed"
+...

@@ -1,0 +1,22 @@
+
+PLAY [Ensure password required for privilege escalation] ***********************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Verify /etc/sudoers file for NOPASSWD occurrences] ***********************
+changed: [192.168.73.142]
+
+TASK [Replace NOPASSWD with PASSWD in /etc/sudoers file] ***********************
+changed: [192.168.73.142]
+
+TASK [Verify /etc/sudoers.d/ files for NOPASSWD occurrences] *******************
+ok: [192.168.73.142]
+
+TASK [Replace NOPASSWD with PASSWD in /etc/sudoers.d/ files] *******************
+changed: [192.168.73.142] => (item={'path': '/etc/sudoers.d/ansible', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 32, 'inode': 18713026, 'dev': 66307, 'nlink': 1, 'atime': 1692391458.596989, 'mtime': 1677506643.4392018, 'ctime': 1677506643.4392018, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 19 seconds

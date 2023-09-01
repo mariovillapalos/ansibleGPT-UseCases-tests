@@ -1,0 +1,25 @@
+---
+- name: Check and enable sudo privilege escalation
+  hosts: rhel8
+  gather_facts: yes
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Check if sudo privilege escalation is disabled
+      command: "sudo -n true"
+      register: sudo_disabled
+      ignore_errors: yes
+
+    - name: Enable sudo privilege escalation if it is disabled
+      lineinfile:
+        dest: /etc/sudoers
+        line: "%wheel ALL=(ALL) NOPASSWD: ALL"
+        state: present
+        insertafter: '^%wheel\s+ALL=(ALL)\s+ALL'
+      when: sudo_disabled|failed
+
+    - name: Reload sudo configurations
+      command: "sudo -n true"
+      ignore_errors: yes
+
+...

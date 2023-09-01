@@ -1,0 +1,27 @@
+---
+- name: Check and enable gpgcheck on RHEL8 hosts
+  hosts: rhel8
+  become: true
+  ignore_errors: yes
+  tasks:
+    - name: Check current status of gpgcheck
+      command: cat /etc/yum.conf | grep -E "gpgcheck\s*=\s*1"
+      register: gpgcheck_status
+      ignore_errors: true
+      changed_when: false
+
+    - name: Enable gpgcheck if it's disabled
+      lineinfile:
+        path: /etc/yum.conf
+        regexp: '^gpgcheck='
+        line: 'gpgcheck=1'
+      when: gpgcheck_status.rc != 0
+      notify: restart_yum
+
+  handlers:
+    - name: restart_yum
+      service:
+        name: yum-cron
+        state: restarted
+
+...

@@ -1,0 +1,17 @@
+---
+- name: Verify and Install sudo
+  hosts: rhel8
+  become: true
+  tasks:
+    - name: Check if sudo is installed
+      ansible.builtin.command:
+        cmd: "dnf list sudo"
+      register: sudo_check
+      changed_when: false
+
+    - name: Install sudo package
+      ansible.builtin.command:
+        cmd: "dnf install -y sudo"
+      when: "'sudo' not in sudo_check.stdout"
+
+...

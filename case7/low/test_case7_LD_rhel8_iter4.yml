@@ -1,0 +1,30 @@
+---
+- name: Configure filesystem integrity using AIDE on RHEL8
+  hosts: rhel8
+  become: yes
+  ignore_errors: yes
+  tasks:
+    - name: Install AIDE package
+      yum:
+        name: aide
+        state: present
+
+    - name: Copy AIDE configuration file
+      copy:
+        src: files/aide.conf
+        dest: /etc/aide.conf
+      notify: Reload AIDE database
+
+    - name: Add cron job for AIDE check
+      cron:
+        name: Run AIDE check
+        minute: 0
+        hour: 5
+        job: "/usr/sbin/aide --check"
+        
+  handlers:
+    - name: Reload AIDE database
+      shell: aide --init
+      changed_when: false
+
+...

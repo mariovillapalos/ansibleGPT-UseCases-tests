@@ -1,0 +1,20 @@
+---
+- name: Configure password expiration
+  hosts: rhel8
+  become: true
+  tasks:
+    - name: Update password expiration in login.defs file
+      ansible.builtin.lineinfile:
+        path: /etc/login.defs
+        regexp: '^PASS_MAX_DAYS'
+        line: 'PASS_MAX_DAYS   365'
+
+    - name: Change password expiration for specific users
+      ansible.builtin.user:
+        name: "{{ item }}"
+        password_expire_max: 365
+      with_items:
+        - root
+        - ansible
+        - luigi
+...

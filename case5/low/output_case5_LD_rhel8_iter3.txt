@@ -1,0 +1,68 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Enable Sudo Authentication] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check if sudo authentication is disabled] ********************************
+ok: [192.168.73.142] => changed=false 
+  cmd:
+  - grep
+  - -E
+  - ^Defaults\s+!authenticate
+  - /etc/sudoers
+  delta: '0:00:00.002701'
+  end: '2023-08-03 22:18:29.785880'
+  msg: ''
+  rc: 0
+  start: '2023-08-03 22:18:29.783179'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: Defaults !authenticate
+  stdout_lines: <omitted>
+
+TASK [Enable sudo authentication if disabled] **********************************
+changed: [192.168.73.142] => changed=true 
+  backup: ''
+  found: 1
+  msg: 1 line(s) removed
+
+TASK [Verify sudo authentication is now enabled] *******************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  cmd:
+  - grep
+  - -q
+  - ^Defaults[[:space:]]+authenticate
+  - /etc/sudoers
+  - '&&'
+  - echo
+  - enabled
+  - '||'
+  - echo
+  - disabled
+  delta: '0:00:01.004200'
+  end: '2023-08-03 22:18:31.907135'
+  msg: non-zero return code
+  rc: 2
+  start: '2023-08-03 22:18:30.902935'
+  stderr: |-
+    grep: &&: No such file or directory
+    grep: echo: No such file or directory
+    grep: enabled: No such file or directory
+    grep: ||: No such file or directory
+    grep: echo: No such file or directory
+    grep: disabled: No such file or directory
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+...ignoring
+
+TASK [Print status] ************************************************************
+ok: [192.168.73.142] => 
+  msg: 'Sudo authentication is '
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 20 seconds

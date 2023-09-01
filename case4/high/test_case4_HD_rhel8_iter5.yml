@@ -1,0 +1,44 @@
+---
+- name: Ensure password required for privilege escalation
+  hosts: rhel8
+  become: yes
+  tasks:
+    - name: Check /etc/sudoers for NOPASSWD
+      command: cat /etc/sudoers
+      register: sudoers_contents
+      ignore_errors: yes
+
+    - name: Replace NOPASSWD with PASSWD in /etc/sudoers
+      replace:
+        path: /etc/sudoers
+        regexp: 'NOPASSWD'
+        replace: 'PASSWD'
+      when: "'NOPASSWD' in sudoers_contents.stdout"
+
+    - name: Check /etc/sudoers.d/ansible for NOPASSWD
+      command: cat /etc/sudoers.d/ansible
+      register: ansible_sudoers_contents
+      ignore_errors: yes
+
+    - name: Replace NOPASSWD with PASSWD in /etc/sudoers.d/ansible
+      replace:
+        path: /etc/sudoers.d/ansible
+        regexp: 'NOPASSWD'
+        replace: 'PASSWD'
+      when: "'NOPASSWD' in ansible_sudoers_contents.stdout"
+
+    - name: Ensure correct file permissions on /etc/sudoers
+      file:
+        path: /etc/sudoers
+        owner: root
+        group: root
+        mode: '0440'
+      ignore_errors: yes
+    - name: Ensure correct file permissions on /etc/sudoers.d/ansible
+      file:
+        path: /etc/sudoers.d/ansible
+        owner: root
+        group: root
+        mode: '0440'
+      ignore_errors: yes
+...

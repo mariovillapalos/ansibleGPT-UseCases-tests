@@ -1,0 +1,29 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Check and enable gpgcheck in YUM configuration] **************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check current gpgcheck status] *******************************************
+ok: [192.168.73.142] => changed=false 
+  cmd: grep -q '^gpgcheck=0' /etc/yum.conf && echo "disabled" || echo "enabled"
+  delta: '0:00:00.003890'
+  end: '2023-08-14 22:16:21.341250'
+  msg: ''
+  rc: 0
+  start: '2023-08-14 22:16:21.337360'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: disabled
+  stdout_lines: <omitted>
+
+TASK [Enable gpgcheck if disabled] *********************************************
+changed: [192.168.73.142] => changed=true 
+  backup: ''
+  msg: line replaced
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 18 seconds

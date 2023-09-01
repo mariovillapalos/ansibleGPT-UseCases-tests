@@ -1,0 +1,101 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Ensure gpgcheck is globally activated] ***********************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check /etc/yum.conf for gpgcheck] ****************************************
+changed: [192.168.73.142] => changed=true 
+  backup: ''
+  msg: line replaced
+
+TASK [Modify /etc/yum.conf if needed] ******************************************
+ok: [192.168.73.142] => 
+  msg: Modified /etc/yum.conf
+
+TASK [Find .repo files in /etc/yum.repos.d/] ***********************************
+ok: [192.168.73.142] => changed=false 
+  examined: 1
+  files:
+  - atime: 1692029726.5312262
+    ctime: 1692029674.9246082
+    dev: 66307
+    gid: 0
+    gr_name: root
+    inode: 17514665
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: false
+    isreg: true
+    issock: false
+    isuid: false
+    mode: '0644'
+    mtime: 1692029674.9246082
+    nlink: 1
+    path: /etc/yum.repos.d/redhat.repo
+    pw_name: root
+    rgrp: true
+    roth: true
+    rusr: true
+    size: 207078
+    uid: 0
+    wgrp: false
+    woth: false
+    wusr: true
+    xgrp: false
+    xoth: false
+    xusr: false
+  matched: 1
+  msg: All paths examined
+  skipped_paths: {}
+
+TASK [Modify .repo files] ******************************************************
+changed: [192.168.73.142] => (item={'path': '/etc/yum.repos.d/redhat.repo', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 207078, 'inode': 17514665, 'dev': 66307, 'nlink': 1, 'atime': 1692029726.5312262, 'mtime': 1692029674.9246082, 'ctime': 1692029674.9246082, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}) => changed=true 
+  ansible_loop_var: item
+  item:
+    atime: 1692029726.5312262
+    ctime: 1692029674.9246082
+    dev: 66307
+    gid: 0
+    gr_name: root
+    inode: 17514665
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: false
+    isreg: true
+    issock: false
+    isuid: false
+    mode: '0644'
+    mtime: 1692029674.9246082
+    nlink: 1
+    path: /etc/yum.repos.d/redhat.repo
+    pw_name: root
+    rgrp: true
+    roth: true
+    rusr: true
+    size: 207078
+    uid: 0
+    wgrp: false
+    woth: false
+    wusr: true
+    xgrp: false
+    xoth: false
+    xusr: false
+  msg: 2 replacements made
+  rc: 0
+
+TASK [Display modified .repo files] ********************************************
+ok: [192.168.73.142] => (item={'path': '/etc/yum.repos.d/redhat.repo', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 207078, 'inode': 17514665, 'dev': 66307, 'nlink': 1, 'atime': 1692029726.5312262, 'mtime': 1692029674.9246082, 'ctime': 1692029674.9246082, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}) => 
+  msg: Modified /etc/yum.repos.d/redhat.repo
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=6    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 18 seconds

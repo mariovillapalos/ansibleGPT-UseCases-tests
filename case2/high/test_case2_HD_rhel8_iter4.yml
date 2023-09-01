@@ -1,0 +1,31 @@
+---
+- name: Ensure password expiration is 365 days or less
+  hosts: rhel8
+  become: yes
+  tasks:
+    - name: Change password expiration for root user
+      ansible.builtin.user:
+        name: root
+        password_expire_max: 365
+      ignore_errors: yes
+
+    - name: Change password expiration for ansible user
+      ansible.builtin.user:
+        name: ansible
+        password_expire_max: 365
+      ignore_errors: yes
+
+    - name: Change password expiration for luigi user
+      ansible.builtin.user:
+        name: luigi
+        password_expire_max: 365
+      ignore_errors: yes
+
+    - name: Change password expiration in /etc/login.defs
+      ansible.builtin.lineinfile:
+        path: /etc/login.defs
+        regex: '^PASS_MAX_DAYS'
+        line: 'PASS_MAX_DAYS 365'
+      ignore_errors: yes
+      
+...

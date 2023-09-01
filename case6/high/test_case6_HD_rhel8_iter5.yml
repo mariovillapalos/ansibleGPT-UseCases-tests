@@ -1,0 +1,26 @@
+---
+- name: Ensure gpgcheck is globally activated on RHEL8
+  hosts: rhel8
+  become: true
+  tasks:
+    - name: Check and modify gpgcheck in /etc/yum.conf
+      replace:
+        path: /etc/yum.conf
+        regexp: '^\s*gpgcheck\s*=\s*0\s*$'
+        replace: 'gpgcheck = 1'
+
+    - name: Find and modify gpgcheck in /etc/yum.repos.d/ files
+      find:
+        paths: /etc/yum.repos.d/
+        recurse: yes
+        patterns: '*'
+      register: repo_files
+
+    - name: Process each repo file
+      replace:
+        path: "{{ item.path }}"
+        regexp: '^\s*gpgcheck\s*=\s*0\s*$'
+        replace: 'gpgcheck = 1'
+      loop: "{{ repo_files.files }}"
+
+...

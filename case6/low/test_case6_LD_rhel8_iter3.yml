@@ -1,0 +1,30 @@
+---
+- name: Audit and enable gpgcheck in yum.conf
+  hosts: rhel8
+  become: true
+  tasks:
+    - name: Check if gpgcheck is disabled
+      shell: grep -q "^gpgcheck=0$" /etc/yum.conf
+      register: gpgcheck_disabled
+      changed_when: false
+      ignore_errors: true
+
+    - name: Enable gpgcheck
+      block:
+        - name: Backup original yum.conf
+          command: cp /etc/yum.conf /etc/yum.conf.bak
+          changed_when: false
+          when: gpgcheck_disabled.rc == 0
+
+        - name: Update yum.conf to enable gpgcheck
+          lineinfile:
+            path: /etc/yum.conf
+            regexp: "^gpgcheck="
+            line: "gpgcheck=1"
+          when: gpgcheck_disabled.rc == 0
+
+      rescue:
+        - name: Restore original yum.conf
+          command: cp /etc/yum.conf.bak /etc/yum.conf
+          changed_when: false
+...

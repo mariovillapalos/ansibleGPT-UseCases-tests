@@ -1,0 +1,58 @@
+---
+- name: Configure iptables
+  hosts: rhel8
+  become: true
+  gather_facts: true
+  ignore_errors: true
+
+  tasks:
+    - name: Flush all existing iptables rules
+      iptables:
+        chain: INPUT
+        table: filter
+        flush: yes
+
+    - name: Allow ICMP (ping) traffic with rate limiting
+      iptables:
+        chain: INPUT
+        table: filter
+        protocol: icmp
+        jump: ACCEPT
+      when: "'-A INPUT -p icmp --icmp-type 8 -m limit --limit 1/s' not in iptables_filter.rules"
+
+    - name: Allow SSH traffic from manager machine
+      iptables:
+        chain: INPUT
+        table: filter
+        protocol: tcp
+        port: 22
+        source: 192.168.73.130
+        jump: ACCEPT
+
+    - name: Allow HTTP traffic (port 80)
+      iptables:
+        chain: INPUT
+        table: filter
+        protocol: tcp
+        port: 80
+        jump: ACCEPT
+
+    - name: Allow HTTPS traffic (port 443)
+      iptables:
+        chain: INPUT
+        table: filter
+        protocol: tcp
+        port: 443
+        jump: ACCEPT
+
+    - name: Set default policies
+      iptables:
+        chain: INPUT
+        policy: DROP
+
+    - name: Set default output policy to ACCEPT
+      iptables:
+        chain: OUTPUT
+        policy: ACCEPT
+
+...

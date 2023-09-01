@@ -1,0 +1,61 @@
+
+PLAY [Configure iptables on RHEL8] *********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Verify iptables and iptables-services are installed] *********************
+ok: [192.168.73.142] => (item=iptables)
+changed: [192.168.73.142] => (item=iptables-services)
+
+TASK [Stop firewalld service] **************************************************
+changed: [192.168.73.142]
+
+TASK [Stop nftables service] ***************************************************
+ok: [192.168.73.142]
+
+TASK [Start and enable iptables service] ***************************************
+changed: [192.168.73.142]
+
+TASK [Flush all firewall rules] ************************************************
+failed: [192.168.73.142] (item=INPUT) => changed=false 
+  ansible_loop_var: item
+  item: INPUT
+  msg: 'parameters are mutually exclusive: flush|policy'
+failed: [192.168.73.142] (item=OUTPUT) => changed=false 
+  ansible_loop_var: item
+  item: OUTPUT
+  msg: 'parameters are mutually exclusive: flush|policy'
+failed: [192.168.73.142] (item=FORWARD) => changed=false 
+  ansible_loop_var: item
+  item: FORWARD
+  msg: 'parameters are mutually exclusive: flush|policy'
+...ignoring
+
+TASK [Allow incoming SSH traffic from specific IP] *****************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (iptables) module: dport. Supported parameters include: action, chain, chain_management, comment, ctstate, destination, destination_port, destination_ports, dst_range, flush, fragment, gateway, gid_owner, goto, icmp_type, in_interface, ip_version, jump, limit, limit_burst, log_level, log_prefix, match, match_set, match_set_flags, out_interface, policy, protocol, reject_with, rule_num, set_counters, set_dscp_mark, set_dscp_mark_class, source, source_port, src_range, state, syn, table, tcp_flags, to_destination, to_ports, to_source, uid_owner, wait.'
+...ignoring
+
+TASK [Enable ICMP traffic with rate limiting] **********************************
+changed: [192.168.73.142]
+
+TASK [Allow incoming HTTP (port 80) traffic] ***********************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (iptables) module: dport. Supported parameters include: action, chain, chain_management, comment, ctstate, destination, destination_port, destination_ports, dst_range, flush, fragment, gateway, gid_owner, goto, icmp_type, in_interface, ip_version, jump, limit, limit_burst, log_level, log_prefix, match, match_set, match_set_flags, out_interface, policy, protocol, reject_with, rule_num, set_counters, set_dscp_mark, set_dscp_mark_class, source, source_port, src_range, state, syn, table, tcp_flags, to_destination, to_ports, to_source, uid_owner, wait.'
+...ignoring
+
+TASK [Allow incoming HTTPS (port 443) traffic] *********************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (iptables) module: dport. Supported parameters include: action, chain, chain_management, comment, ctstate, destination, destination_port, destination_ports, dst_range, flush, fragment, gateway, gid_owner, goto, icmp_type, in_interface, ip_version, jump, limit, limit_burst, log_level, log_prefix, match, match_set, match_set_flags, out_interface, policy, protocol, reject_with, rule_num, set_counters, set_dscp_mark, set_dscp_mark_class, source, source_port, src_range, state, syn, table, tcp_flags, to_destination, to_ports, to_source, uid_owner, wait.'
+...ignoring
+
+TASK [Set default policies] ****************************************************
+changed: [192.168.73.142] => (item={'chain': 'INPUT', 'policy': 'DROP'})
+changed: [192.168.73.142] => (item={'chain': 'FORWARD', 'policy': 'DROP'})
+ok: [192.168.73.142] => (item={'chain': 'OUTPUT', 'policy': 'ACCEPT'})
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=11   changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=4   
+
+Playbook run took 0 days, 0 hours, 1 minutes, 12 seconds

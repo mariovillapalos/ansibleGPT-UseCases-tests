@@ -1,0 +1,28 @@
+
+PLAY [Ensure password required for privilege escalation] ***********************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check /etc/sudoers for NOPASSWD] *****************************************
+changed: [192.168.73.142]
+
+TASK [Replace NOPASSWD with PASSWD in /etc/sudoers] ****************************
+changed: [192.168.73.142]
+
+TASK [Check /etc/sudoers.d/ansible for NOPASSWD] *******************************
+changed: [192.168.73.142]
+
+TASK [Replace NOPASSWD with PASSWD in /etc/sudoers.d/ansible] ******************
+changed: [192.168.73.142]
+
+TASK [Ensure correct file permissions on /etc/sudoers] *************************
+changed: [192.168.73.142]
+
+TASK [Ensure correct file permissions on /etc/sudoers.d/ansible] ***************
+changed: [192.168.73.142]
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=7    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 22 seconds

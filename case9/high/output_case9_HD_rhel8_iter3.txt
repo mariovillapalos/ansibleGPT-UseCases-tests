@@ -1,0 +1,39 @@
+
+PLAY [Configure Password Policies on RHEL 8] ***********************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Configure minimum password length] ***************************************
+changed: [192.168.73.142]
+
+TASK [Configure minimum number of required character classes] ******************
+changed: [192.168.73.142]
+
+TASK [Configure number of attempts before account is locked] *******************
+changed: [192.168.73.142]
+
+TASK [Configure time before account is unlocked] *******************************
+changed: [192.168.73.142]
+
+TASK [Add password history configuration to system-auth] ***********************
+changed: [192.168.73.142]
+
+TASK [Add password history configuration to password-auth] *********************
+changed: [192.168.73.142]
+
+TASK [Reload PAM Configuration Changes] ****************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  cmd: pam_tally2 --reset
+  msg: '[Errno 2] No such file or directory: b''pam_tally2'': b''pam_tally2'''
+  rc: 2
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+...ignoring
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=8    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 21 seconds

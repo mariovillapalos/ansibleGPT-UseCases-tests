@@ -1,0 +1,58 @@
+
+PLAY [Configure iptables on RHEL8] *********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Install iptables and iptables-services] **********************************
+ok: [192.168.73.142] => (item=iptables)
+changed: [192.168.73.142] => (item=iptables-services)
+
+TASK [Stop firewalld service] **************************************************
+changed: [192.168.73.142]
+
+TASK [Stop nftables service] ***************************************************
+ok: [192.168.73.142]
+
+TASK [Start and enable iptables service] ***************************************
+changed: [192.168.73.142]
+
+TASK [Flush all firewall rules] ************************************************
+changed: [192.168.73.142]
+
+TASK [Allow incoming SSH traffic from specific IP] *****************************
+changed: [192.168.73.142]
+
+TASK [Allow ICMP traffic with rate limiting] ***********************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  cmd: /sbin/iptables -t filter -A INPUT -p icmp -m 'icmp --icmp-type 8' -j ACCEPT -m limit --limit 1/s
+  msg: |-
+    iptables v1.8.4 (nf_tables): Couldn't load match `icmp --icmp-type 8':No such file or directory
+  
+    Try `iptables -h' or 'iptables --help' for more information.
+  rc: 2
+  stderr: |-
+    iptables v1.8.4 (nf_tables): Couldn't load match `icmp --icmp-type 8':No such file or directory
+  
+    Try `iptables -h' or 'iptables --help' for more information.
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+...ignoring
+
+TASK [Allow incoming HTTP (port 80) traffic] ***********************************
+changed: [192.168.73.142]
+
+TASK [Allow incoming HTTPS (port 443) traffic] *********************************
+changed: [192.168.73.142]
+
+TASK [Set default policy DROP for INPUT chain] *********************************
+changed: [192.168.73.142]
+
+TASK [Set default policy ACCEPT for OUTPUT chain] ******************************
+ok: [192.168.73.142]
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=12   changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+
+Playbook run took 0 days, 0 hours, 1 minutes, 14 seconds

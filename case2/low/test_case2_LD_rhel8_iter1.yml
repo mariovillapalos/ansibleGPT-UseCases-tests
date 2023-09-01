@@ -1,0 +1,26 @@
+---
+- name: Set password expiration for specific users
+  hosts: rhel8
+  become: yes
+  tasks:
+    - name: Change password expiration in /etc/login.defs
+      lineinfile:
+        path: /etc/login.defs
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+        state: present
+      with_items:
+        - { regexp: '^PASS_MAX_DAYS', line: 'PASS_MAX_DAYS   365' }
+        - { regexp: '^PASS_MIN_DAYS', line: 'PASS_MIN_DAYS   0' }
+        - { regexp: '^PASS_WARN_AGE', line: 'PASS_WARN_AGE   7' }
+
+    - name: Set password expiration for specific users
+      user:
+        name: "{{ item }}"
+        password_max_age: 365
+      with_items:
+        - root
+        - ansible
+        - luigi
+
+...

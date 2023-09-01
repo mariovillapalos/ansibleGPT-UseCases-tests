@@ -1,0 +1,58 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Disable IP forwarding on RHEL8] ******************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Disable IPv4 forwarding permanently] *************************************
+changed: [192.168.73.142] => changed=true
+
+TASK [Disable IPv6 forwarding permanently] *************************************
+changed: [192.168.73.142] => changed=true
+
+TASK [Save sysctl settings to make changes permanent] **************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - sysctl
+  - --system
+  delta: '0:00:00.006986'
+  end: '2023-07-27 01:26:00.960835'
+  msg: ''
+  rc: 0
+  start: '2023-07-27 01:26:00.953849'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: |-
+    * Applying /usr/lib/sysctl.d/10-default-yama-scope.conf ...
+    kernel.yama.ptrace_scope = 0
+    * Applying /usr/lib/sysctl.d/50-coredump.conf ...
+    kernel.core_pattern = |/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h %e
+    * Applying /usr/lib/sysctl.d/50-default.conf ...
+    kernel.sysrq = 16
+    kernel.core_uses_pid = 1
+    kernel.kptr_restrict = 1
+    net.ipv4.conf.all.rp_filter = 1
+    net.ipv4.conf.all.accept_source_route = 0
+    net.ipv4.conf.all.promote_secondaries = 1
+    net.core.default_qdisc = fq_codel
+    fs.protected_hardlinks = 1
+    fs.protected_symlinks = 1
+    * Applying /usr/lib/sysctl.d/50-libkcapi-optmem_max.conf ...
+    net.core.optmem_max = 81920
+    * Applying /usr/lib/sysctl.d/50-pid-max.conf ...
+    kernel.pid_max = 4194304
+    * Applying /usr/lib/sysctl.d/60-libvirtd.conf ...
+    fs.aio-max-nr = 1048576
+    * Applying /etc/sysctl.d/99-sysctl.conf ...
+    net.ipv4.ip_forward = 0
+    net.ipv6.conf.all.forwarding = 0
+    * Applying /etc/sysctl.conf ...
+    net.ipv4.ip_forward = 0
+    net.ipv6.conf.all.forwarding = 0
+  stdout_lines: <omitted>
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 18 seconds

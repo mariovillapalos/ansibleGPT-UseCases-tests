@@ -1,0 +1,570 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Configure iptables] ******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Verify iptables and iptables-services are installed] *********************
+ok: [192.168.73.142] => changed=false 
+  stat:
+    atime: 1692146138.3186574
+    attr_flags: ''
+    attributes: []
+    block_size: 4096
+    blocks: 0
+    charset: binary
+    ctime: 1677152583.1990077
+    dev: 66307
+    device_type: 0
+    executable: true
+    exists: true
+    gid: 0
+    gr_name: root
+    inode: 1335090
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: true
+    isreg: false
+    issock: false
+    isuid: false
+    lnk_source: /usr/sbin/xtables-nft-multi
+    lnk_target: xtables-nft-multi
+    mimetype: inode/symlink
+    mode: '0777'
+    mtime: 1611748388.0
+    nlink: 1
+    path: /usr/sbin/iptables
+    pw_name: root
+    readable: true
+    rgrp: true
+    roth: true
+    rusr: true
+    size: 17
+    uid: 0
+    version: null
+    wgrp: true
+    woth: true
+    writeable: true
+    wusr: true
+    xgrp: true
+    xoth: true
+    xusr: true
+
+TASK [Install iptables and iptables-services] **********************************
+skipping: [192.168.73.142] => (item=iptables)  => changed=false 
+  ansible_loop_var: item
+  item: iptables
+  skip_reason: Conditional result was False
+skipping: [192.168.73.142] => (item=iptables-services)  => changed=false 
+  ansible_loop_var: item
+  item: iptables-services
+  skip_reason: Conditional result was False
+skipping: [192.168.73.142] => changed=false 
+  msg: All items skipped
+
+TASK [Stop firewalld service] **************************************************
+changed: [192.168.73.142] => changed=true 
+  name: firewalld
+  state: stopped
+  status:
+    ActiveEnterTimestamp: Fri 2023-06-09 12:18:45 CEST
+    ActiveEnterTimestampMonotonic: '10087468'
+    ActiveExitTimestampMonotonic: '0'
+    ActiveState: active
+    After: system.slice sysinit.target basic.target polkit.service dbus.service dbus.socket
+    AllowIsolate: 'no'
+    AllowedCPUs: ''
+    AllowedMemoryNodes: ''
+    AmbientCapabilities: ''
+    AssertResult: 'yes'
+    AssertTimestamp: Fri 2023-06-09 12:18:45 CEST
+    AssertTimestampMonotonic: '9453804'
+    Before: network-pre.target shutdown.target multi-user.target
+    BlockIOAccounting: 'no'
+    BlockIOWeight: '[not set]'
+    BusName: org.fedoraproject.FirewallD1
+    CPUAccounting: 'no'
+    CPUAffinity: ''
+    CPUAffinityFromNUMA: 'no'
+    CPUQuotaPerSecUSec: infinity
+    CPUQuotaPeriodUSec: infinity
+    CPUSchedulingPolicy: '0'
+    CPUSchedulingPriority: '0'
+    CPUSchedulingResetOnFork: 'no'
+    CPUShares: '[not set]'
+    CPUUsageNSec: '[not set]'
+    CPUWeight: '[not set]'
+    CacheDirectoryMode: '0755'
+    CanFreeze: 'yes'
+    CanIsolate: 'no'
+    CanReload: 'yes'
+    CanStart: 'yes'
+    CanStop: 'yes'
+    CapabilityBoundingSet: cap_chown cap_dac_override cap_dac_read_search cap_fowner cap_fsetid cap_kill cap_setgid cap_setuid cap_setpcap cap_linux_immutable cap_net_bind_service cap_net_broadcast cap_net_admin cap_net_raw cap_ipc_lock cap_ipc_owner cap_sys_module cap_sys_rawio cap_sys_chroot cap_sys_ptrace cap_sys_pacct cap_sys_admin cap_sys_boot cap_sys_nice cap_sys_resource cap_sys_time cap_sys_tty_config cap_mknod cap_lease cap_audit_write cap_audit_control cap_setfcap cap_mac_override cap_mac_admin cap_syslog cap_wake_alarm cap_block_suspend cap_audit_read cap_perfmon
+    CollectMode: inactive
+    ConditionResult: 'yes'
+    ConditionTimestamp: Fri 2023-06-09 12:18:45 CEST
+    ConditionTimestampMonotonic: '9453804'
+    ConfigurationDirectoryMode: '0755'
+    Conflicts: ebtables.service ip6tables.service shutdown.target ipset.service iptables.service nftables.service
+    ControlGroup: /system.slice/firewalld.service
+    ControlPID: '0'
+    DefaultDependencies: 'yes'
+    DefaultMemoryLow: '0'
+    DefaultMemoryMin: '0'
+    Delegate: 'no'
+    Description: firewalld - dynamic firewall daemon
+    DevicePolicy: auto
+    Documentation: man:firewalld(1)
+    DynamicUser: 'no'
+    EffectiveCPUs: ''
+    EffectiveMemoryNodes: ''
+    EnvironmentFiles: /etc/sysconfig/firewalld (ignore_errors=yes)
+    ExecMainCode: '0'
+    ExecMainExitTimestampMonotonic: '0'
+    ExecMainPID: '1157'
+    ExecMainStartTimestamp: Fri 2023-06-09 12:18:45 CEST
+    ExecMainStartTimestampMonotonic: '9464513'
+    ExecMainStatus: '0'
+    ExecReload: '{ path=/bin/kill ; argv[]=/bin/kill -HUP $MAINPID ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecStart: '{ path=/usr/sbin/firewalld ; argv[]=/usr/sbin/firewalld --nofork --nopid $FIREWALLD_ARGS ; ignore_errors=no ; start_time=[Fri 2023-06-09 12:18:45 CEST] ; stop_time=[n/a] ; pid=1157 ; code=(null) ; status=0/0 }'
+    FailureAction: none
+    FileDescriptorStoreMax: '0'
+    FragmentPath: /usr/lib/systemd/system/firewalld.service
+    FreezerState: running
+    GID: '[not set]'
+    GuessMainPID: 'yes'
+    IOAccounting: 'no'
+    IOSchedulingClass: '0'
+    IOSchedulingPriority: '0'
+    IOWeight: '[not set]'
+    IPAccounting: 'no'
+    IPEgressBytes: '18446744073709551615'
+    IPEgressPackets: '18446744073709551615'
+    IPIngressBytes: '18446744073709551615'
+    IPIngressPackets: '18446744073709551615'
+    Id: firewalld.service
+    IgnoreOnIsolate: 'no'
+    IgnoreSIGPIPE: 'yes'
+    InactiveEnterTimestampMonotonic: '0'
+    InactiveExitTimestamp: Fri 2023-06-09 12:18:45 CEST
+    InactiveExitTimestampMonotonic: '9464597'
+    InvocationID: a2b1030ac5e542cd8453e96a01054418
+    JobRunningTimeoutUSec: infinity
+    JobTimeoutAction: none
+    JobTimeoutUSec: infinity
+    KeyringMode: private
+    KillMode: mixed
+    KillSignal: '15'
+    LimitAS: infinity
+    LimitASSoft: infinity
+    LimitCORE: infinity
+    LimitCORESoft: infinity
+    LimitCPU: infinity
+    LimitCPUSoft: infinity
+    LimitDATA: infinity
+    LimitDATASoft: infinity
+    LimitFSIZE: infinity
+    LimitFSIZESoft: infinity
+    LimitLOCKS: infinity
+    LimitLOCKSSoft: infinity
+    LimitMEMLOCK: '65536'
+    LimitMEMLOCKSoft: '65536'
+    LimitMSGQUEUE: '819200'
+    LimitMSGQUEUESoft: '819200'
+    LimitNICE: '0'
+    LimitNICESoft: '0'
+    LimitNOFILE: '262144'
+    LimitNOFILESoft: '1024'
+    LimitNPROC: '7013'
+    LimitNPROCSoft: '7013'
+    LimitRSS: infinity
+    LimitRSSSoft: infinity
+    LimitRTPRIO: '0'
+    LimitRTPRIOSoft: '0'
+    LimitRTTIME: infinity
+    LimitRTTIMESoft: infinity
+    LimitSIGPENDING: '7013'
+    LimitSIGPENDINGSoft: '7013'
+    LimitSTACK: infinity
+    LimitSTACKSoft: '8388608'
+    LoadState: loaded
+    LockPersonality: 'no'
+    LogLevelMax: '-1'
+    LogRateLimitBurst: '0'
+    LogRateLimitIntervalUSec: '0'
+    LogsDirectoryMode: '0755'
+    MainPID: '1157'
+    MemoryAccounting: 'yes'
+    MemoryCurrent: '12566528'
+    MemoryDenyWriteExecute: 'no'
+    MemoryHigh: infinity
+    MemoryLimit: infinity
+    MemoryLow: '0'
+    MemoryMax: infinity
+    MemoryMin: '0'
+    MemorySwapMax: infinity
+    MountAPIVFS: 'no'
+    MountFlags: ''
+    NFileDescriptorStore: '0'
+    NRestarts: '0'
+    NUMAMask: ''
+    NUMAPolicy: n/a
+    Names: firewalld.service
+    NeedDaemonReload: 'no'
+    Nice: '0'
+    NoNewPrivileges: 'no'
+    NonBlocking: 'no'
+    NotifyAccess: none
+    OOMScoreAdjust: '0'
+    OnFailureJobMode: replace
+    PermissionsStartOnly: 'no'
+    Perpetual: 'no'
+    PrivateDevices: 'no'
+    PrivateMounts: 'no'
+    PrivateNetwork: 'no'
+    PrivateTmp: 'no'
+    PrivateUsers: 'no'
+    ProtectControlGroups: 'no'
+    ProtectHome: 'no'
+    ProtectKernelModules: 'no'
+    ProtectKernelTunables: 'no'
+    ProtectSystem: 'no'
+    RefuseManualStart: 'no'
+    RefuseManualStop: 'no'
+    RemainAfterExit: 'no'
+    RemoveIPC: 'no'
+    Requires: dbus.socket sysinit.target system.slice
+    Restart: 'no'
+    RestartUSec: 100ms
+    RestrictNamespaces: 'no'
+    RestrictRealtime: 'no'
+    RestrictSUIDSGID: 'no'
+    Result: success
+    RootDirectoryStartOnly: 'no'
+    RuntimeDirectoryMode: '0755'
+    RuntimeDirectoryPreserve: 'no'
+    RuntimeMaxUSec: infinity
+    SameProcessGroup: 'no'
+    SecureBits: '0'
+    SendSIGHUP: 'no'
+    SendSIGKILL: 'yes'
+    Slice: system.slice
+    StandardError: 'null'
+    StandardInput: 'null'
+    StandardInputData: ''
+    StandardOutput: 'null'
+    StartLimitAction: none
+    StartLimitBurst: '5'
+    StartLimitIntervalUSec: 10s
+    StartupBlockIOWeight: '[not set]'
+    StartupCPUShares: '[not set]'
+    StartupCPUWeight: '[not set]'
+    StartupIOWeight: '[not set]'
+    StateChangeTimestamp: Fri 2023-06-09 12:18:45 CEST
+    StateChangeTimestampMonotonic: '10087468'
+    StateDirectoryMode: '0755'
+    StatusErrno: '0'
+    StopWhenUnneeded: 'no'
+    SubState: running
+    SuccessAction: none
+    SyslogFacility: '3'
+    SyslogLevel: '6'
+    SyslogLevelPrefix: 'yes'
+    SyslogPriority: '30'
+    SystemCallErrorNumber: '0'
+    TTYReset: 'no'
+    TTYVHangup: 'no'
+    TTYVTDisallocate: 'no'
+    TasksAccounting: 'yes'
+    TasksCurrent: '2'
+    TasksMax: '11221'
+    TimeoutStartUSec: 1min 30s
+    TimeoutStopUSec: 1min 30s
+    TimerSlackNSec: '50000'
+    Transient: 'no'
+    Type: dbus
+    UID: '[not set]'
+    UMask: '0022'
+    UnitFilePreset: enabled
+    UnitFileState: enabled
+    UtmpMode: init
+    WantedBy: multi-user.target
+    Wants: network-pre.target
+    WatchdogTimestamp: Fri 2023-06-09 12:18:45 CEST
+    WatchdogTimestampMonotonic: '10087466'
+    WatchdogUSec: '0'
+
+TASK [Stop nftables service] ***************************************************
+ok: [192.168.73.142] => changed=false 
+  name: nftables
+  state: stopped
+  status:
+    ActiveEnterTimestampMonotonic: '0'
+    ActiveExitTimestampMonotonic: '0'
+    ActiveState: inactive
+    After: system.slice systemd-journald.socket sysinit.target basic.target
+    AllowIsolate: 'no'
+    AllowedCPUs: ''
+    AllowedMemoryNodes: ''
+    AmbientCapabilities: ''
+    AssertResult: 'no'
+    AssertTimestampMonotonic: '0'
+    Before: network-pre.target shutdown.target
+    BlockIOAccounting: 'no'
+    BlockIOWeight: '[not set]'
+    CPUAccounting: 'no'
+    CPUAffinity: ''
+    CPUAffinityFromNUMA: 'no'
+    CPUQuotaPerSecUSec: infinity
+    CPUQuotaPeriodUSec: infinity
+    CPUSchedulingPolicy: '0'
+    CPUSchedulingPriority: '0'
+    CPUSchedulingResetOnFork: 'no'
+    CPUShares: '[not set]'
+    CPUUsageNSec: '[not set]'
+    CPUWeight: '[not set]'
+    CacheDirectoryMode: '0755'
+    CanFreeze: 'yes'
+    CanIsolate: 'no'
+    CanReload: 'yes'
+    CanStart: 'yes'
+    CanStop: 'yes'
+    CapabilityBoundingSet: cap_chown cap_dac_override cap_dac_read_search cap_fowner cap_fsetid cap_kill cap_setgid cap_setuid cap_setpcap cap_linux_immutable cap_net_bind_service cap_net_broadcast cap_net_admin cap_net_raw cap_ipc_lock cap_ipc_owner cap_sys_module cap_sys_rawio cap_sys_chroot cap_sys_ptrace cap_sys_pacct cap_sys_admin cap_sys_boot cap_sys_nice cap_sys_resource cap_sys_time cap_sys_tty_config cap_mknod cap_lease cap_audit_write cap_audit_control cap_setfcap cap_mac_override cap_mac_admin cap_syslog cap_wake_alarm cap_block_suspend cap_audit_read cap_perfmon
+    CollectMode: inactive
+    ConditionResult: 'no'
+    ConditionTimestampMonotonic: '0'
+    ConfigurationDirectoryMode: '0755'
+    ConflictedBy: firewalld.service
+    Conflicts: shutdown.target
+    ControlPID: '0'
+    DefaultDependencies: 'yes'
+    DefaultMemoryLow: '0'
+    DefaultMemoryMin: '0'
+    Delegate: 'no'
+    Description: Netfilter Tables
+    DevicePolicy: auto
+    Documentation: man:nft(8)
+    DynamicUser: 'no'
+    EffectiveCPUs: ''
+    EffectiveMemoryNodes: ''
+    ExecMainCode: '0'
+    ExecMainExitTimestampMonotonic: '0'
+    ExecMainPID: '0'
+    ExecMainStartTimestampMonotonic: '0'
+    ExecMainStatus: '0'
+    ExecReload: '{ path=/sbin/nft ; argv[]=/sbin/nft flush ruleset; include "/etc/sysconfig/nftables.conf"; ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecStart: '{ path=/sbin/nft ; argv[]=/sbin/nft -f /etc/sysconfig/nftables.conf ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecStop: '{ path=/sbin/nft ; argv[]=/sbin/nft flush ruleset ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    FailureAction: none
+    FileDescriptorStoreMax: '0'
+    FragmentPath: /usr/lib/systemd/system/nftables.service
+    FreezerState: running
+    GID: '[not set]'
+    GuessMainPID: 'yes'
+    IOAccounting: 'no'
+    IOSchedulingClass: '0'
+    IOSchedulingPriority: '0'
+    IOWeight: '[not set]'
+    IPAccounting: 'no'
+    IPEgressBytes: '18446744073709551615'
+    IPEgressPackets: '18446744073709551615'
+    IPIngressBytes: '18446744073709551615'
+    IPIngressPackets: '18446744073709551615'
+    Id: nftables.service
+    IgnoreOnIsolate: 'no'
+    IgnoreSIGPIPE: 'yes'
+    InactiveEnterTimestampMonotonic: '0'
+    InactiveExitTimestampMonotonic: '0'
+    JobRunningTimeoutUSec: infinity
+    JobTimeoutAction: none
+    JobTimeoutUSec: infinity
+    KeyringMode: private
+    KillMode: control-group
+    KillSignal: '15'
+    LimitAS: infinity
+    LimitASSoft: infinity
+    LimitCORE: infinity
+    LimitCORESoft: infinity
+    LimitCPU: infinity
+    LimitCPUSoft: infinity
+    LimitDATA: infinity
+    LimitDATASoft: infinity
+    LimitFSIZE: infinity
+    LimitFSIZESoft: infinity
+    LimitLOCKS: infinity
+    LimitLOCKSSoft: infinity
+    LimitMEMLOCK: '65536'
+    LimitMEMLOCKSoft: '65536'
+    LimitMSGQUEUE: '819200'
+    LimitMSGQUEUESoft: '819200'
+    LimitNICE: '0'
+    LimitNICESoft: '0'
+    LimitNOFILE: '262144'
+    LimitNOFILESoft: '1024'
+    LimitNPROC: '7013'
+    LimitNPROCSoft: '7013'
+    LimitRSS: infinity
+    LimitRSSSoft: infinity
+    LimitRTPRIO: '0'
+    LimitRTPRIOSoft: '0'
+    LimitRTTIME: infinity
+    LimitRTTIMESoft: infinity
+    LimitSIGPENDING: '7013'
+    LimitSIGPENDINGSoft: '7013'
+    LimitSTACK: infinity
+    LimitSTACKSoft: '8388608'
+    LoadState: loaded
+    LockPersonality: 'no'
+    LogLevelMax: '-1'
+    LogRateLimitBurst: '0'
+    LogRateLimitIntervalUSec: '0'
+    LogsDirectoryMode: '0755'
+    MainPID: '0'
+    MemoryAccounting: 'yes'
+    MemoryCurrent: '[not set]'
+    MemoryDenyWriteExecute: 'no'
+    MemoryHigh: infinity
+    MemoryLimit: infinity
+    MemoryLow: '0'
+    MemoryMax: infinity
+    MemoryMin: '0'
+    MemorySwapMax: infinity
+    MountAPIVFS: 'no'
+    MountFlags: ''
+    NFileDescriptorStore: '0'
+    NRestarts: '0'
+    NUMAMask: ''
+    NUMAPolicy: n/a
+    Names: nftables.service
+    NeedDaemonReload: 'no'
+    Nice: '0'
+    NoNewPrivileges: 'no'
+    NonBlocking: 'no'
+    NotifyAccess: none
+    OOMScoreAdjust: '0'
+    OnFailureJobMode: replace
+    PermissionsStartOnly: 'no'
+    Perpetual: 'no'
+    PrivateDevices: 'no'
+    PrivateMounts: 'no'
+    PrivateNetwork: 'no'
+    PrivateTmp: 'no'
+    PrivateUsers: 'no'
+    ProtectControlGroups: 'no'
+    ProtectHome: 'yes'
+    ProtectKernelModules: 'no'
+    ProtectKernelTunables: 'no'
+    ProtectSystem: full
+    RefuseManualStart: 'no'
+    RefuseManualStop: 'no'
+    RemainAfterExit: 'yes'
+    RemoveIPC: 'no'
+    Requires: system.slice sysinit.target
+    Restart: 'no'
+    RestartUSec: 100ms
+    RestrictNamespaces: 'no'
+    RestrictRealtime: 'no'
+    RestrictSUIDSGID: 'no'
+    Result: success
+    RootDirectoryStartOnly: 'no'
+    RuntimeDirectoryMode: '0755'
+    RuntimeDirectoryPreserve: 'no'
+    RuntimeMaxUSec: infinity
+    SameProcessGroup: 'no'
+    SecureBits: '0'
+    SendSIGHUP: 'no'
+    SendSIGKILL: 'yes'
+    Slice: system.slice
+    StandardError: inherit
+    StandardInput: 'null'
+    StandardInputData: ''
+    StandardOutput: journal
+    StartLimitAction: none
+    StartLimitBurst: '5'
+    StartLimitIntervalUSec: 10s
+    StartupBlockIOWeight: '[not set]'
+    StartupCPUShares: '[not set]'
+    StartupCPUWeight: '[not set]'
+    StartupIOWeight: '[not set]'
+    StateChangeTimestampMonotonic: '0'
+    StateDirectoryMode: '0755'
+    StatusErrno: '0'
+    StopWhenUnneeded: 'no'
+    SubState: dead
+    SuccessAction: none
+    SyslogFacility: '3'
+    SyslogLevel: '6'
+    SyslogLevelPrefix: 'yes'
+    SyslogPriority: '30'
+    SystemCallErrorNumber: '0'
+    TTYReset: 'no'
+    TTYVHangup: 'no'
+    TTYVTDisallocate: 'no'
+    TasksAccounting: 'yes'
+    TasksCurrent: '[not set]'
+    TasksMax: '11221'
+    TimeoutStartUSec: infinity
+    TimeoutStopUSec: 1min 30s
+    TimerSlackNSec: '50000'
+    Transient: 'no'
+    Type: oneshot
+    UID: '[not set]'
+    UMask: '0022'
+    UnitFilePreset: disabled
+    UnitFileState: disabled
+    UtmpMode: init
+    Wants: network-pre.target
+    WatchdogTimestampMonotonic: '0'
+    WatchdogUSec: '0'
+
+TASK [Start and enable iptables service] ***************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Could not find the requested service iptables: host'
+...ignoring
+
+TASK [Flush all firewall rules] ************************************************
+failed: [192.168.73.142] (item=INPUT) => changed=false 
+  ansible_loop_var: item
+  item: INPUT
+  msg: 'value of action must be one of: append, insert, got: flush'
+failed: [192.168.73.142] (item=OUTPUT) => changed=false 
+  ansible_loop_var: item
+  item: OUTPUT
+  msg: 'value of action must be one of: append, insert, got: flush'
+failed: [192.168.73.142] (item=FORWARD) => changed=false 
+  ansible_loop_var: item
+  item: FORWARD
+  msg: 'value of action must be one of: append, insert, got: flush'
+...ignoring
+
+TASK [Allow incoming SSH traffic from specific IP] *****************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (iptables) module: dport. Supported parameters include: action, chain, chain_management, comment, ctstate, destination, destination_port, destination_ports, dst_range, flush, fragment, gateway, gid_owner, goto, icmp_type, in_interface, ip_version, jump, limit, limit_burst, log_level, log_prefix, match, match_set, match_set_flags, out_interface, policy, protocol, reject_with, rule_num, set_counters, set_dscp_mark, set_dscp_mark_class, source, source_port, src_range, state, syn, table, tcp_flags, to_destination, to_ports, to_source, uid_owner, wait.'
+...ignoring
+
+TASK [Allow incoming ICMP traffic with rate limiting] **************************
+changed: [192.168.73.142] => changed=true 
+  chain: INPUT
+  chain_management: false
+  flush: false
+  ip_version: ipv4
+  rule: -p icmp -j ACCEPT -m limit --limit 1/s --icmp-type echo-request
+  state: present
+  table: filter
+
+TASK [Allow incoming HTTP (port 80) traffic] ***********************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (iptables) module: dport. Supported parameters include: action, chain, chain_management, comment, ctstate, destination, destination_port, destination_ports, dst_range, flush, fragment, gateway, gid_owner, goto, icmp_type, in_interface, ip_version, jump, limit, limit_burst, log_level, log_prefix, match, match_set, match_set_flags, out_interface, policy, protocol, reject_with, rule_num, set_counters, set_dscp_mark, set_dscp_mark_class, source, source_port, src_range, state, syn, table, tcp_flags, to_destination, to_ports, to_source, uid_owner, wait.'
+...ignoring
+
+TASK [Allow incoming HTTPS (port 443) traffic] *********************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (iptables) module: dport. Supported parameters include: action, chain, chain_management, comment, ctstate, destination, destination_port, destination_ports, dst_range, flush, fragment, gateway, gid_owner, goto, icmp_type, in_interface, ip_version, jump, limit, limit_burst, log_level, log_prefix, match, match_set, match_set_flags, out_interface, policy, protocol, reject_with, rule_num, set_counters, set_dscp_mark, set_dscp_mark_class, source, source_port, src_range, state, syn, table, tcp_flags, to_destination, to_ports, to_source, uid_owner, wait.'
+...ignoring
+
+TASK [Set default policy for INPUT chain to DROP] ******************************

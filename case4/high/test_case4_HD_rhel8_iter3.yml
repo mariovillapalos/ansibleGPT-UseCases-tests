@@ -1,0 +1,34 @@
+---
+- name: Ensure password required for privilege escalation
+  hosts: rhel8
+  gather_facts: yes
+  become: true
+  become_user: root
+  ignore_errors: yes
+  tasks:
+    - name: Verify /etc/sudoers file for NOPASSWD occurrences
+      shell:
+        cmd: cat /etc/sudoers | grep 'NOPASSWD'
+      register: sudoers_check
+
+    - name: Replace NOPASSWD with PASSWD in /etc/sudoers file
+      replace:
+        path: /etc/sudoers
+        regexp: 'NOPASSWD'
+        replace: 'PASSWD'
+      when: sudoers_check.stdout != ""
+
+    - name: Verify /etc/sudoers.d/ files for NOPASSWD occurrences
+      find:
+        paths: /etc/sudoers.d/
+        patterns: "ansible"
+      register: sudoers_d_files
+
+    - name: Replace NOPASSWD with PASSWD in /etc/sudoers.d/ files
+      replace:
+        path: "{{ item.path }}"
+        regexp: 'NOPASSWD'
+        replace: 'PASSWD'
+      when: item.path is defined and item.path != ""
+      loop: "{{ sudoers_d_files.files }}"
+...

@@ -1,0 +1,32 @@
+---
+- name: Ensure password is required for privilege escalation
+  hosts: rhel8
+  become: yes
+  become_user: root
+  tasks:
+    - name: Verify /etc/sudoers file for "NOPASSWD" occurrences
+      command: cat /etc/sudoers
+      register: sudoers_content
+      changed_when: false
+
+    - name: Replace "NOPASSWD" with "PASSWD" in /etc/sudoers
+      ansible.builtin.replace:
+        path: /etc/sudoers
+        regexp: 'NOPASSWD'
+        replace: 'PASSWD'
+      when: "'NOPASSWD' in sudoers_content.stdout"
+
+    - name: Verify /etc/sudoers.d/ansible file for "NOPASSWD" occurrences
+      command: cat /etc/sudoers.d/ansible
+      register: ansible_sudoers_content
+      changed_when: false
+      ignore_errors: yes
+
+    - name: Replace "NOPASSWD" with "PASSWD" in /etc/sudoers.d/ansible
+      ansible.builtin.replace:
+        path: /etc/sudoers.d/ansible
+        regexp: 'NOPASSWD'
+        replace: 'PASSWD'
+      when: "'NOPASSWD' in ansible_sudoers_content.stdout"
+
+...

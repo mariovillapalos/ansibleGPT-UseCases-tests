@@ -1,0 +1,27 @@
+---
+- name: Ensure gpgcheck is globally activated
+  hosts: rhel8
+  become: true
+  tasks:
+    - name: Check and modify /etc/yum.conf
+      lineinfile:
+        path: /etc/yum.conf
+        regexp: '^\s*gpgcheck\s*=\s*0\s*$'
+        line: 'gpgcheck = 1'
+
+    - name: Find files in /etc/yum.repos.d/
+      find:
+        paths: /etc/yum.repos.d/
+        recurse: no
+        patterns: "*.repo"
+      register: repo_files
+
+    - name: Modify gpgcheck in repo files
+      lineinfile:
+        path: "{{ item.path }}"
+        regexp: '^\s*gpgcheck\s*=\s*0\s*$'
+        line: 'gpgcheck = 1'
+      loop: "{{ repo_files.files }}"
+      when: repo_files.matched > 0 
+
+...

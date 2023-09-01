@@ -1,0 +1,32 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Configure filesystem integrity using AIDE tool] **************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Install AIDE package] ****************************************************
+changed: [192.168.73.142] => changed=true 
+  msg: ''
+  rc: 0
+  results:
+  - 'Installed: aide-0.16-14.el8_5.1.x86_64'
+
+TASK [Copy AIDE configuration file] ********************************************
+An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: |-
+    Could not find or access '/etc/aide/aide.conf' on the Ansible Controller.
+    If you are using a module and expect the file to exist on the remote, see the remote_src option
+...ignoring
+
+TASK [Configure AIDE cron job] *************************************************
+changed: [192.168.73.142] => changed=true 
+  envs: []
+  jobs:
+  - Run AIDE integrity check
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 58 seconds

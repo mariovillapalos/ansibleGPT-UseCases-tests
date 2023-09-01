@@ -1,0 +1,51 @@
+---
+- name: Configure Password Policies on Red Hat Enterprise Linux 8
+  hosts: rhel8
+  become: yes
+  tasks:
+    - name: Set Minimum Password Length
+      lineinfile:
+        path: /etc/security/pwquality.conf
+        line: "minlen = 14"
+        insertafter: '^# minlen'
+      ignore_errors: yes
+
+    - name: Set Required Number of Character Classes
+      lineinfile:
+        path: /etc/security/pwquality.conf
+        line: "minclass = 4"
+        insertafter: '^# minclass'
+      ignore_errors: yes
+
+    - name: Set Maximum Retry Attempts before Account Lock
+      lineinfile:
+        path: /etc/security/pwquality.conf
+        line: "maxretry = 3"
+        insertafter: '^# maxretry'
+      ignore_errors: yes
+
+    - name: Set Delay in Seconds before Account Unlock
+      lineinfile:
+        path: /etc/security/pwquality.conf
+        line: "retrydelay = 600"
+        insertafter: '^# retrydelay'
+      ignore_errors: yes
+
+    - name: Prohibit Password Reuse for Multiple Generations
+      lineinfile:
+        path: /etc/security/opasswd
+        line: "password requisite pam_pwhistory.so remember=5"
+        insertafter: '^# password requisite pam_pwhistory.so'
+      ignore_errors: yes
+
+    - name: Configure Password History Enforcement
+      lineinfile:
+        path: /etc/security/pwquality.conf
+        line: "minclass = 4"
+        insertafter: '^# minclass'
+      ignore_errors: yes
+
+    - name: Reload PAM Configuration and Reset Tally
+      command: pam_tally2 --reset
+      ignore_errors: yes
+...

@@ -1,0 +1,52 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Ensure password expiration is 365 days or less] **************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Change password expiration for root user] ********************************
+changed: [192.168.73.142] => changed=true 
+  append: false
+  comment: root
+  group: 0
+  home: /root
+  move_home: false
+  name: root
+  shell: /bin/bash
+  state: present
+  uid: 0
+
+TASK [Change password expiration for ansible user] *****************************
+changed: [192.168.73.142] => changed=true 
+  append: false
+  comment: ''
+  group: 1001
+  home: /home/ansible
+  move_home: false
+  name: ansible
+  shell: /bin/bash
+  state: present
+  uid: 1001
+
+TASK [Change password expiration for luigi user] *******************************
+changed: [192.168.73.142] => changed=true 
+  append: false
+  comment: RHEL 8
+  group: 1000
+  home: /home/luigi
+  move_home: false
+  name: luigi
+  shell: /bin/bash
+  state: present
+  uid: 1000
+
+TASK [Change password expiration in /etc/login.defs] ***************************
+changed: [192.168.73.142] => changed=true 
+  backup: ''
+  msg: line replaced
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=5    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 20 seconds

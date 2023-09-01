@@ -1,0 +1,146 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Verify and install sudo] *************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check if sudo is installed] **********************************************
+ok: [192.168.73.142] => changed=false 
+  msg: ''
+  results:
+  - arch: x86_64
+    envra: 0:sudo-1.8.29-7.el8.x86_64
+    epoch: '0'
+    name: sudo
+    nevra: 0:sudo-1.8.29-7.el8.x86_64
+    release: 7.el8
+    repo: '@System'
+    version: 1.8.29
+    yumstate: installed
+  - arch: x86_64
+    envra: 0:sudo-1.8.25p1-4.el8.x86_64
+    epoch: '0'
+    name: sudo
+    nevra: 0:sudo-1.8.25p1-4.el8.x86_64
+    release: 4.el8
+    repo: rhel-8-for-x86_64-baseos-rpms
+    version: 1.8.25p1
+    yumstate: available
+  - arch: x86_64
+    envra: 0:sudo-1.8.25p1-7.el8.x86_64
+    epoch: '0'
+    name: sudo
+    nevra: 0:sudo-1.8.25p1-7.el8.x86_64
+    release: 7.el8
+    repo: rhel-8-for-x86_64-baseos-rpms
+    version: 1.8.25p1
+    yumstate: available
+  - arch: x86_64
+    envra: 0:sudo-1.8.25p1-4.el8_0.1.x86_64
+    epoch: '0'
+    name: sudo
+    nevra: 0:sudo-1.8.25p1-4.el8_0.1.x86_64
+    release: 4.el8_0.1
+    repo: rhel-8-for-x86_64-baseos-rpms
+    version: 1.8.25p1
+    yumstate: available
+  - arch: x86_64
+    envra: 0:sudo-1.8.25p1-8.el8_1.1.x86_64
+    epoch: '0'
+    name: sudo
+    nevra: 0:sudo-1.8.25p1-8.el8_1.1.x86_64
+    release: 8.el8_1.1
+    repo: rhel-8-for-x86_64-baseos-rpms
+    version: 1.8.25p1
+    yumstate: available
+  - arch: x86_64
+    envra: 0:sudo-1.8.29-5.el8.x86_64
+    epoch: '0'
+    name: sudo
+    nevra: 0:sudo-1.8.29-5.el8.x86_64
+    release: 5.el8
+    repo: rhel-8-for-x86_64-baseos-rpms
+    version: 1.8.29
+    yumstate: available
+  - arch: x86_64
+    envra: 0:sudo-1.8.25p1-8.el8_1.x86_64
+    epoch: '0'
+    name: sudo
+    nevra: 0:sudo-1.8.25p1-8.el8_1.x86_64
+    release: 8.el8_1
+    repo: rhel-8-for-x86_64-baseos-rpms
+    version: 1.8.25p1
+    yumstate: available
+  - arch: x86_64
+    envra: 0:sudo-1.8.29-6.el8.x86_64
+    epoch: '0'
+    name: sudo
+    nevra: 0:sudo-1.8.29-6.el8.x86_64
+    release: 6.el8
+    repo: rhel-8-for-x86_64-baseos-rpms
+    version: 1.8.29
+    yumstate: available
+  - arch: x86_64
+    envra: 0:sudo-1.8.29-7.el8.x86_64
+    epoch: '0'
+    name: sudo
+    nevra: 0:sudo-1.8.29-7.el8.x86_64
+    release: 7.el8
+    repo: rhel-8-for-x86_64-baseos-rpms
+    version: 1.8.29
+    yumstate: available
+  - arch: x86_64
+    envra: 0:sudo-1.8.29-6.el8_3.1.x86_64
+    epoch: '0'
+    name: sudo
+    nevra: 0:sudo-1.8.29-6.el8_3.1.x86_64
+    release: 6.el8_3.1
+    repo: rhel-8-for-x86_64-baseos-rpms
+    version: 1.8.29
+    yumstate: available
+  - arch: x86_64
+    envra: 0:sudo-1.8.29-7.el8_4.1.x86_64
+    epoch: '0'
+    name: sudo
+    nevra: 0:sudo-1.8.29-7.el8_4.1.x86_64
+    release: 7.el8_4.1
+    repo: rhel-8-for-x86_64-baseos-rpms
+    version: 1.8.29
+    yumstate: available
+  - arch: x86_64
+    envra: 0:sudo-1.8.29-8.el8.x86_64
+    epoch: '0'
+    name: sudo
+    nevra: 0:sudo-1.8.29-8.el8.x86_64
+    release: 8.el8
+    repo: rhel-8-for-x86_64-baseos-rpms
+    version: 1.8.29
+    yumstate: available
+  - arch: x86_64
+    envra: 0:sudo-1.8.29-8.el8_7.1.x86_64
+    epoch: '0'
+    name: sudo
+    nevra: 0:sudo-1.8.29-8.el8_7.1.x86_64
+    release: 8.el8_7.1
+    repo: rhel-8-for-x86_64-baseos-rpms
+    version: 1.8.29
+    yumstate: available
+  - arch: x86_64
+    envra: 0:sudo-1.8.29-10.el8.x86_64
+    epoch: '0'
+    name: sudo
+    nevra: 0:sudo-1.8.29-10.el8.x86_64
+    release: 10.el8
+    repo: rhel-8-for-x86_64-baseos-rpms
+    version: 1.8.29
+    yumstate: available
+
+TASK [Install sudo package] ****************************************************
+skipping: [192.168.73.142] => changed=false 
+  skip_reason: Conditional result was False
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 21 seconds

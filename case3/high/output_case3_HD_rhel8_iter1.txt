@@ -1,0 +1,17 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Disable IP forwarding on RHEL8] ******************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Disable IPv4 forwarding] *************************************************
+changed: [192.168.73.142] => changed=true
+
+TASK [Disable IPv6 forwarding] *************************************************
+changed: [192.168.73.142] => changed=true
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 18 seconds

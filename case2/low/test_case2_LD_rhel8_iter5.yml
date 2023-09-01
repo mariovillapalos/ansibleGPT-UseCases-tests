@@ -1,0 +1,31 @@
+---
+- name: Set Password Expiration for Specific Users
+  hosts: rhel8
+  gather_facts: yes
+  ignore_errors: yes
+  become: true
+
+  tasks:
+    - name: Update password expiration for root, ansible, and luigi
+      lineinfile:
+        path: /etc/login.defs
+        regexp: "^PASS_MAX_DAYS"
+        line: "PASS_MAX_DAYS 365"
+      when: ansible_user == 'root'  # Only allow running the task when executed by the 'root' user
+
+    - name: Set password expiration for root user
+      user:
+        name: root
+        max_password_age: 365
+      when: ansible_user == 'root'
+
+    - name: Set password expiration for ansible user
+      user:
+        name: ansible
+        max_password_age: 365
+
+    - name: Set password expiration for luigi user
+      user:
+        name: luigi
+        max_password_age: 365
+...

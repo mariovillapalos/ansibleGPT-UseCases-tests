@@ -1,0 +1,31 @@
+
+PLAY [Configure Password Policies on RHEL 8] ***********************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Set minimum password length] *********************************************
+changed: [192.168.73.142]
+
+TASK [Set minimum number of required character classes] ************************
+changed: [192.168.73.142]
+
+TASK [Set number of attempts before account lock] ******************************
+changed: [192.168.73.142]
+
+TASK [Set time before account unlock] ******************************************
+changed: [192.168.73.142]
+
+TASK [Add password history configuration to system-auth and password-auth files] ***
+changed: [192.168.73.142]
+
+TASK [Add password history configuration to password-auth file] ****************
+fatal: [192.168.73.142]: FAILED! => 
+  msg: |-
+    Failed to get information on remote file (/etc/pam.d/password-auth): Shared connection to 192.168.73.142 closed.
+...ignoring
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=7    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 22 seconds

@@ -1,0 +1,48 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Configure iptables] ******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Flush all existing iptables rules] ***************************************
+changed: [192.168.73.142] => changed=true 
+  chain: INPUT
+  chain_management: false
+  flush: true
+  ip_version: ipv4
+  rule: ''
+  state: present
+  table: filter
+
+TASK [Allow ICMP (ping) traffic with rate limiting] ****************************
+fatal: [192.168.73.142]: FAILED! => 
+  msg: |-
+    The conditional check ''-A INPUT -p icmp --icmp-type 8 -m limit --limit 1/s' not in iptables_filter.rules' failed. The error was: error while evaluating conditional ('-A INPUT -p icmp --icmp-type 8 -m limit --limit 1/s' not in iptables_filter.rules): 'iptables_filter' is undefined. 'iptables_filter' is undefined
+  
+    The error appears to be in '/home/mario/Documents/tfm/use-cases-ansible-GPT/use-cases/rhel8/playbooks-iterations/case12/low/test_case12_LD_rhel8_iter2.yml': line 15, column 7, but may
+    be elsewhere in the file depending on the exact syntax problem.
+  
+    The offending line appears to be:
+  
+  
+        - name: Allow ICMP (ping) traffic with rate limiting
+          ^ here
+...ignoring
+
+TASK [Allow SSH traffic from manager machine] **********************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (iptables) module: port. Supported parameters include: action, chain, chain_management, comment, ctstate, destination, destination_port, destination_ports, dst_range, flush, fragment, gateway, gid_owner, goto, icmp_type, in_interface, ip_version, jump, limit, limit_burst, log_level, log_prefix, match, match_set, match_set_flags, out_interface, policy, protocol, reject_with, rule_num, set_counters, set_dscp_mark, set_dscp_mark_class, source, source_port, src_range, state, syn, table, tcp_flags, to_destination, to_ports, to_source, uid_owner, wait.'
+...ignoring
+
+TASK [Allow HTTP traffic (port 80)] ********************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (iptables) module: port. Supported parameters include: action, chain, chain_management, comment, ctstate, destination, destination_port, destination_ports, dst_range, flush, fragment, gateway, gid_owner, goto, icmp_type, in_interface, ip_version, jump, limit, limit_burst, log_level, log_prefix, match, match_set, match_set_flags, out_interface, policy, protocol, reject_with, rule_num, set_counters, set_dscp_mark, set_dscp_mark_class, source, source_port, src_range, state, syn, table, tcp_flags, to_destination, to_ports, to_source, uid_owner, wait.'
+...ignoring
+
+TASK [Allow HTTPS traffic (port 443)] ******************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (iptables) module: port. Supported parameters include: action, chain, chain_management, comment, ctstate, destination, destination_port, destination_ports, dst_range, flush, fragment, gateway, gid_owner, goto, icmp_type, in_interface, ip_version, jump, limit, limit_burst, log_level, log_prefix, match, match_set, match_set_flags, out_interface, policy, protocol, reject_with, rule_num, set_counters, set_dscp_mark, set_dscp_mark_class, source, source_port, src_range, state, syn, table, tcp_flags, to_destination, to_ports, to_source, uid_owner, wait.'
+...ignoring
+
+TASK [Set default policies] ****************************************************

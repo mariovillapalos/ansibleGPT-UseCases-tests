@@ -1,0 +1,41 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Check and enable sudo privilege escalation] ******************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check if sudo privilege escalation is disabled] **************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - sudo
+  - -n
+  - 'true'
+  delta: '0:00:00.028466'
+  end: '2023-08-03 22:22:57.295281'
+  msg: ''
+  rc: 0
+  start: '2023-08-03 22:22:57.266815'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Enable sudo privilege escalation if it is disabled] **********************
+fatal: [192.168.73.142]: FAILED! => 
+  msg: |-
+    The conditional check 'sudo_disabled|failed' failed. The error was: template error while templating string: Could not load "failed": 'failed'. String: {% if sudo_disabled|failed %} True {% else %} False {% endif %}. Could not load "failed": 'failed'
+  
+    The error appears to be in '/home/mario/Documents/tfm/use-cases-ansible-GPT/use-cases/rhel8/playbooks-iterations/case7/low/test_case7_LD_rhel8_iter4.yml': line 13, column 7, but may
+    be elsewhere in the file depending on the exact syntax problem.
+  
+    The offending line appears to be:
+  
+  
+        - name: Enable sudo privilege escalation if it is disabled
+          ^ here
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=2    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 18 seconds

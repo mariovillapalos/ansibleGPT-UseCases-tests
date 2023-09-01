@@ -1,0 +1,36 @@
+---
+- name: Check and enable gpgcheck on RHEL8 host
+  hosts: rhel8
+  become: yes
+  ignore_errors: yes
+  tasks:
+    - name: Check if gpgcheck is disabled
+      shell: |
+        grep -q "^gpgcheck=0" /etc/yum.conf || grep -q "^gpgcheck=0" /etc/yum.repos.d/*.repo
+      register: gpgcheck_disabled
+      ignore_errors: true
+
+    - name: Enable gpgcheck if disabled
+      lineinfile:
+        path: /etc/yum.conf
+        regexp: '^gpgcheck=0'
+        line: "gpgcheck=1"
+      when: gpgcheck_disabled.rc == 0
+      notify: restart_yum
+
+    - name: Enable gpgcheck if disabled in repo files
+      blockinfile:
+        path: "{{ item.path }}"
+        marker: "# {mark} ANSIBLE MANAGED BLOCK - Do not modify or delete this line"
+        block: |
+          gpgcheck=1
+      loop: "{{ ansible_facts.yumrepos }}"
+      when: gpgcheck_disabled.rc == 0
+      notify: restart_yum
+
+  handlers:
+    - name: restart_yum
+      systemd:
+        name: yum-cron.service
+        state: restarted
+...

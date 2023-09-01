@@ -1,0 +1,18 @@
+
+PLAY [Configure password expiration] *******************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Update password expiration in login.defs file] ***************************
+changed: [192.168.73.142]
+
+TASK [Change password expiration for specific users] ***************************
+changed: [192.168.73.142] => (item=root)
+changed: [192.168.73.142] => (item=ansible)
+changed: [192.168.73.142] => (item=luigi)
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 23 seconds

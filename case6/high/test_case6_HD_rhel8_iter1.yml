@@ -1,0 +1,37 @@
+---
+- name: Ensure gpgcheck is globally activated
+  hosts: rhel8
+  become: yes
+  ignore_errors: yes
+  tasks:
+    - name: Check and modify gpgcheck in /etc/yum.conf
+      block:
+        - name: Read yum.conf content
+          slurp:
+            path: /etc/yum.conf
+          register: yum_conf_content
+
+        - name: Replace gpgcheck variations with gpgcheck = 1 in yum.conf
+          replace:
+            path: /etc/yum.conf
+            regexp: 'gpgcheck\s*=\s*0'
+            replace: 'gpgcheck = 1'
+          when: yum_conf_content['content'] | b64decode is search('gpgcheck\s*=\s*0')
+
+    - name: Check and modify gpgcheck in yum repo files
+      block:
+        - name: Find yum repo files
+          find:
+            paths: /etc/yum.repos.d/
+            patterns: '*.repo'
+          register: repo_files
+
+        - name: Read and modify gpgcheck in each repo file
+          replace:
+            path: "{{ item.path }}"
+            regexp: 'gpgcheck\s*=\s*0'
+            replace: 'gpgcheck = 1'
+          with_items: "{{ repo_files.files }}"
+          
+...
+

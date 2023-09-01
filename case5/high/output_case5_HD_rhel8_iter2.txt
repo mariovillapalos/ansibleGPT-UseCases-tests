@@ -1,0 +1,84 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Ensure re-authentication for privilege escalation is not disabled globally] ***
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check /etc/sudoers file for "!authenticate" tag] *************************
+ok: [192.168.73.142] => changed=false 
+  cmd: cat /etc/sudoers | grep '!authenticate'
+  delta: '0:00:00.004284'
+  end: '2023-06-21 21:27:24.993006'
+  failed_when_result: false
+  msg: ''
+  rc: 0
+  start: '2023-06-21 21:27:24.988722'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: Defaults !authenticate
+  stdout_lines: <omitted>
+
+TASK [Backup /etc/sudoers file] ************************************************
+ok: [192.168.73.142] => changed=false 
+  cmd:
+  - cp
+  - /etc/sudoers
+  - /etc/sudoers.backup
+  delta: '0:00:00.006546'
+  end: '2023-06-21 21:27:25.513845'
+  failed_when_result: false
+  msg: ''
+  rc: 0
+  start: '2023-06-21 21:27:25.507299'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Replace "!authenticate" occurrences with "authenticate"] *****************
+changed: [192.168.73.142] => changed=true 
+  failed_when_result: false
+  msg: 1 replacements made
+  rc: 0
+
+TASK [Check /etc/sudoers.d files for "!authenticate" tag] **********************
+ok: [192.168.73.142] => changed=false 
+  cmd: grep -r '!authenticate' /etc/sudoers.d
+  delta: '0:00:00.003770'
+  end: '2023-06-21 21:27:26.661792'
+  failed_when_result: false
+  msg: ''
+  rc: 0
+  start: '2023-06-21 21:27:26.658022'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: /etc/sudoers.d/ansible:Defaults !authenticate
+  stdout_lines: <omitted>
+
+TASK [Backup /etc/sudoers.d files] *********************************************
+ok: [192.168.73.142] => changed=false 
+  cmd:
+  - cp
+  - -r
+  - /etc/sudoers.d
+  - /etc/sudoers.d.backup
+  delta: '0:00:00.003915'
+  end: '2023-06-21 21:27:27.178757'
+  failed_when_result: false
+  msg: ''
+  rc: 0
+  start: '2023-06-21 21:27:27.174842'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Replace "!authenticate" occurrences with "authenticate" in /etc/sudoers.d files] ***
+skipping: [192.168.73.142] => changed=false 
+  skipped_reason: No items in the list
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=6    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 19 seconds

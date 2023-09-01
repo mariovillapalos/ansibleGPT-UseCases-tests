@@ -1,0 +1,26 @@
+---
+- name: Check and Enable Sudo Authentication
+  hosts: rhel8
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Check if authentication when elevating privileges with sudo is disabled
+      command: grep -E '^Defaults\s+!authenticate' /etc/sudoers
+      register: sudo_auth_disabled
+      ignore_errors: yes
+
+    - name: Enable sudo authentication
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^Defaults\s+!authenticate'
+        line: 'Defaults    authenticate'
+      when: sudo_auth_disabled.rc == 0
+
+    - name: Ensure sudoers file has correct permissions
+      file:
+        path: /etc/sudoers
+        owner: root
+        group: root
+        mode: "0440"
+...

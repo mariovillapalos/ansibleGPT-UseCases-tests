@@ -1,0 +1,17 @@
+- name: Disable IP forwarding on RHEL 8
+  hosts: rhel8
+  become: true
+  ignore_errors: yes
+
+  tasks:
+    - name: Ensure IP forwarding is disabled
+      sysctl:
+        name: net.ipv4.ip_forward
+        value: 0
+        state: present
+      notify: Reload sysctl
+
+  handlers:
+    - name: Reload sysctl
+      command: sysctl --system
+...

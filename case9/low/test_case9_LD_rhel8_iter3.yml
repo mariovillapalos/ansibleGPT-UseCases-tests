@@ -1,0 +1,51 @@
+---
+- name: Configure Enhanced Password Policies on RHEL 8
+  hosts: rhel8
+  become: yes
+  tasks:
+    - name: Define Minimum Password Length
+      lineinfile:
+        path: /etc/security/pwquality.conf
+        line: "minlen = 14"
+        insertafter: '^# minlen'
+      ignore_errors: yes
+
+    - name: Specify Required Character Classes
+      lineinfile:
+        path: /etc/security/pwquality.conf
+        line: "minclass = 4"
+        insertafter: '^# minclass'
+      ignore_errors: yes
+
+    - name: Set Maximum Retry Attempts for Account Locking
+      lineinfile:
+        path: /etc/security/pwquality.conf
+        line: "maxretry = 3"
+        insertafter: '^# maxretry'
+      ignore_errors: yes
+
+    - name: Configure Account Unlock Delay
+      lineinfile:
+        path: /etc/security/pwquality.conf
+        line: "retrydelay = 600"
+        insertafter: '^# retrydelay'
+      ignore_errors: yes
+
+    - name: Prevent Password Reuse Across Generations
+      lineinfile:
+        path: /etc/security/opasswd
+        line: "password requisite pam_pwhistory.so remember=5"
+        insertafter: '^# password requisite pam_pwhistory.so'
+      ignore_errors: yes
+
+    - name: Apply Password History Enforcement
+      lineinfile:
+        path: /etc/security/pwquality.conf
+        line: "minclass = 4"
+        insertafter: '^# minclass'
+      ignore_errors: yes
+
+    - name: Reload PAM Configuration Changes
+      command: pam_tally2 --reset
+      ignore_errors: yes
+...

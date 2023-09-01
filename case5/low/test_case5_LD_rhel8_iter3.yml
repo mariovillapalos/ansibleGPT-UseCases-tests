@@ -1,0 +1,32 @@
+---
+- name: Enable Sudo Authentication
+  hosts: rhel8
+  gather_facts: yes
+  become: true
+  become_method: sudo
+  tasks:
+    - name: Check if sudo authentication is disabled
+      command: grep -E '^Defaults\s+!authenticate' /etc/sudoers
+      register: sudo_auth_status
+      changed_when: false
+      ignore_errors: yes
+
+    - name: Enable sudo authentication if disabled
+      lineinfile:
+        path: /etc/sudoers
+        regexp: '^Defaults\s+!authenticate'
+        line: 'Defaults !authenticate'
+        state: absent
+      when: sudo_auth_status.rc == 0
+
+    - name: Verify sudo authentication is now enabled
+      command: grep -q '^Defaults[[:space:]]+authenticate' /etc/sudoers && echo "enabled" || echo "disabled"
+      register: sudo_auth_status
+      changed_when: false
+      ignore_errors: yes
+
+    - name: Print status
+      debug:
+        msg: "Sudo authentication is {{ sudo_auth_status.stdout }}"
+
+...

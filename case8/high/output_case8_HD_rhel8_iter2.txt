@@ -1,0 +1,67 @@
+
+PLAY [Configure iptables from scratch] *****************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Verify iptables and iptables-services are installed] *********************
+fatal: [192.168.73.142]: FAILED! => changed=true 
+  cmd:
+  - rpm
+  - -q
+  - iptables
+  - iptables-services
+  delta: '0:00:00.016774'
+  end: '2023-08-17 07:14:53.366778'
+  msg: non-zero return code
+  rc: 1
+  start: '2023-08-17 07:14:53.350004'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: |-
+    iptables-1.8.4-17.el8.x86_64
+    package iptables-services is not installed
+  stdout_lines: <omitted>
+...ignoring
+
+TASK [Install iptables and iptables-services if not installed] *****************
+ok: [192.168.73.142] => (item=iptables)
+changed: [192.168.73.142] => (item=iptables-services)
+
+TASK [Stop firewalld service] **************************************************
+changed: [192.168.73.142]
+
+TASK [Stop nftables service] ***************************************************
+ok: [192.168.73.142]
+
+TASK [Start and enable iptables service] ***************************************
+changed: [192.168.73.142]
+
+TASK [Flush all firewall rules] ************************************************
+changed: [192.168.73.142]
+
+TASK [Allow incoming SSH traffic from specific IP address] *********************
+changed: [192.168.73.142]
+
+TASK [Allow outgoing SSH traffic to specific IP address when state is established] ***
+changed: [192.168.73.142]
+
+TASK [Allow ICMP (ping) traffic with rate limiting] ****************************
+changed: [192.168.73.142]
+
+TASK [Allow incoming HTTP (port 80) traffic] ***********************************
+changed: [192.168.73.142]
+
+TASK [Allow incoming HTTPS (port 443) traffic] *********************************
+changed: [192.168.73.142]
+
+TASK [Set default policy as DROP for INPUT chain] ******************************
+changed: [192.168.73.142]
+
+TASK [Set default policy as ACCEPT for OUTPUT chain] ***************************
+changed: [192.168.73.142]
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=14   changed=12   unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+
+Playbook run took 0 days, 0 hours, 1 minutes, 24 seconds

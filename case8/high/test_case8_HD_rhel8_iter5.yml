@@ -1,0 +1,91 @@
+---
+- name: Configure iptables
+  hosts: rhel8
+  become: true
+  tasks:
+  
+    - name: Install iptables and iptables-services
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - iptables
+        - iptables-services
+      when: iptables_check.stat.exists == false
+      ignore_errors: yes
+
+    - name: Stop firewalld service
+      service:
+        name: firewalld
+        state: stop
+      ignore_errors: yes
+
+    - name: Stop nftables service
+      service:
+        name: nftables
+        state: stop
+      ignore_errors: yes
+
+    - name: Start and enable iptables service
+      service:
+        name: iptables
+        state: start
+        enabled: yes
+      ignore_errors: yes
+
+    - name: Flush all firewall rules
+      iptables:
+        chain: "{{ item }}"
+        policy: ACCEPT
+        action: flush
+      loop:
+        - INPUT
+        - OUTPUT
+        - FORWARD
+      ignore_errors: yes
+
+    - name: Allow incoming SSH traffic from specific IP
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        source: 192.168.73.130
+        destination_port: 22
+        jump: ACCEPT
+      ignore_errors: yes
+
+    - name: Enable ICMP traffic with rate limiting
+      iptables:
+        chain: INPUT
+        protocol: icmp
+        icmp_type: echo-request
+        limit: "1/s"
+        jump: ACCEPT
+      ignore_errors: yes
+
+    - name: Allow incoming HTTP (port 80) traffic
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: 80
+        jump: ACCEPT
+      ignore_errors: yes
+
+    - name: Allow incoming HTTPS (port 443) traffic
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: 443
+        jump: ACCEPT
+      ignore_errors: yes
+
+    - name: Set default policy for INPUT chain to DROP
+      iptables:
+        chain: INPUT
+        default_policy: DROP
+      ignore_errors: yes
+
+    - name: Set default policy for OUTPUT chain to ACCEPT
+      iptables:
+        chain: OUTPUT
+        default_policy: ACCEPT
+      ignore_errors: yes

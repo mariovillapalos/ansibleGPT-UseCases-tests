@@ -1,0 +1,39 @@
+---
+- name: Update sudoers file on RHEL8 hosts
+  hosts: rhel8
+  become: true
+  tasks:
+    - name: Check for occurrences of "NOPASSWD" in /etc/sudoers
+      command: grep -q "NOPASSWD" /etc/sudoers
+      changed_when: false
+      register: sudoers_check
+      ignore_errors: true
+
+    - name: Update /etc/sudoers file
+      lineinfile:
+        path: /etc/sudoers
+        regexp: "^%wheel.*NOPASSWD.*$"
+        line: "%wheel ALL=(ALL) PASSWD: ALL"
+      when: sudoers_check.rc == 0
+      notify: restart_sudo
+
+    - name: Check for occurrences of "NOPASSWD" in /etc/sudoers.d/ansible
+      command: grep -q "NOPASSWD" /etc/sudoers.d/ansible
+      changed_when: false
+      register: sudoers_d_check
+      ignore_errors: true
+
+    - name: Update /etc/sudoers.d/ansible file
+      lineinfile:
+        path: /etc/sudoers.d/ansible
+        regexp: "^.*NOPASSWD.*$"
+        line: "# Removed NOPASSWD directive"
+      when: sudoers_d_check.rc == 0
+      notify: restart_sudo
+
+  handlers:
+    - name: restart_sudo
+      systemd:
+        name: sudo
+        state: restarted
+...

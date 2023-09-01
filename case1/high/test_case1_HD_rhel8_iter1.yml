@@ -1,0 +1,17 @@
+---
+- name: Verify and install sudo
+  hosts: rhel8
+  gather_facts: true
+  become: yes
+  tasks:
+    - name: Check if sudo is installed
+      dnf:
+        list: sudo
+      register: sudo_pkg
+
+    - name: Install sudo package
+      dnf:
+        name: sudo
+        state: present
+      when: sudo_pkg.results == ''
+...

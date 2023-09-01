@@ -1,0 +1,63 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Install sudo on RHEL8] ***************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Check if sudo is installed] **********************************************
+ok: [192.168.73.142] => changed=false 
+  stat:
+    atime: 1690281105.1954772
+    attr_flags: ''
+    attributes: []
+    block_size: 4096
+    blocks: 328
+    charset: binary
+    checksum: 16751e53f1a0d63c51ec1e6ccf4f5983aedc1527
+    ctime: 1677152704.1330123
+    dev: 66307
+    device_type: 0
+    executable: true
+    exists: true
+    gid: 0
+    gr_name: root
+    inode: 51538083
+    isblk: false
+    ischr: false
+    isdir: false
+    isfifo: false
+    isgid: false
+    islnk: false
+    isreg: true
+    issock: false
+    isuid: true
+    mimetype: application/x-sharedlib
+    mode: '4111'
+    mtime: 1612365595.0
+    nlink: 1
+    path: /usr/bin/sudo
+    pw_name: root
+    readable: true
+    rgrp: false
+    roth: false
+    rusr: false
+    size: 165640
+    uid: 0
+    version: '1587976845'
+    wgrp: false
+    woth: false
+    writeable: true
+    wusr: false
+    xgrp: true
+    xoth: true
+    xusr: true
+
+TASK [Install sudo package] ****************************************************
+skipping: [192.168.73.142] => changed=false 
+  skip_reason: Conditional result was False
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 18 seconds

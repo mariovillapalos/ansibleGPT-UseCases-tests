@@ -1,0 +1,19 @@
+---
+- name: Verify and Install sudo
+  hosts: rhel8
+  become: true
+
+  tasks:
+    - name: Check if sudo is installed
+      command: "dnf list sudo"
+      register: sudo_pkg_check
+      changed_when: false
+      failed_when: sudo_pkg_check.rc != 0
+
+    - name: Install sudo package
+      dnf:
+        name: sudo
+        state: present
+      when: sudo_pkg_check is failed
+
+...

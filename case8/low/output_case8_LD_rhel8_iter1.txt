@@ -1,0 +1,145 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Configure iptables on RHEL 8] ********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.73.142]
+
+TASK [Flush existing iptables rules] *******************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -F
+  delta: '0:00:00.005674'
+  end: '2023-08-16 20:16:07.280716'
+  msg: ''
+  rc: 0
+  start: '2023-08-16 20:16:07.275042'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Set default policies for input and output chains] ************************
+fatal: [192.168.73.142]: FAILED! => changed=true 
+  cmd:
+  - iptables
+  - -P
+  - INPUT
+  - DROP
+  - '&&'
+  - iptables
+  - -P
+  - OUTPUT
+  - ACCEPT
+  delta: '0:00:00.003832'
+  end: '2023-08-16 20:16:07.928581'
+  msg: non-zero return code
+  rc: 2
+  start: '2023-08-16 20:16:07.924749'
+  stderr: |-
+    Bad argument `&&'
+    Try `iptables -h' or 'iptables --help' for more information.
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+...ignoring
+
+TASK [Allow ICMP (ping) traffic with rate limiting] ****************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -A
+  - INPUT
+  - -p
+  - icmp
+  - --icmp-type
+  - echo-request
+  - -m
+  - limit
+  - --limit
+  - 2/s
+  - -j
+  - ACCEPT
+  delta: '0:00:00.088611'
+  end: '2023-08-16 20:16:08.579142'
+  msg: ''
+  rc: 0
+  start: '2023-08-16 20:16:08.490531'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Allow SSH traffic from manager machine] **********************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -A
+  - INPUT
+  - -p
+  - tcp
+  - -s
+  - 192.168.73.130
+  - --dport
+  - '22'
+  - -j
+  - ACCEPT
+  delta: '0:00:00.005808'
+  end: '2023-08-16 20:16:09.270553'
+  msg: ''
+  rc: 0
+  start: '2023-08-16 20:16:09.264745'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Allow HTTP traffic (port 80)] ********************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -A
+  - INPUT
+  - -p
+  - tcp
+  - --dport
+  - '80'
+  - -j
+  - ACCEPT
+  delta: '0:00:00.004300'
+  end: '2023-08-16 20:16:09.961190'
+  msg: ''
+  rc: 0
+  start: '2023-08-16 20:16:09.956890'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [Allow HTTPS traffic (port 443)] ******************************************
+changed: [192.168.73.142] => changed=true 
+  cmd:
+  - iptables
+  - -A
+  - INPUT
+  - -p
+  - tcp
+  - --dport
+  - '443'
+  - -j
+  - ACCEPT
+  delta: '0:00:00.006813'
+  end: '2023-08-16 20:16:10.733936'
+  msg: ''
+  rc: 0
+  start: '2023-08-16 20:16:10.727123'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+PLAY RECAP *********************************************************************
+192.168.73.142             : ok=7    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+
+Playbook run took 0 days, 0 hours, 0 minutes, 23 seconds
