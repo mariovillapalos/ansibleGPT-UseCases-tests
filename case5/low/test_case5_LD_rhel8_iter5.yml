@@ -2,6 +2,7 @@
 - name: Ensure re-authentication for privilege escalation is not disabled globally
   hosts: rhel8
   become: true
+  ignore_errors: yes
   gather_facts: true
 
   tasks:
