@@ -1,6 +1,6 @@
 # ansibleGPT: Use Case Tests
 
-This repository contains the tests conducted to evaluate the use cases of AnsibleGPT, a natural language-based infrastructure automation tool. These tests are divided into nine use cases, each of which has two variants: "low" (less detailed) and "high" (highly detailed), representing different levels of complexity in the prompts used.
+This repository contains the tests conducted to evaluate the use cases of AnsibleGPT, a natural language-based infrastructure automation tool. These tests are divided into nine use cases, each of which has two variants: "low" (low-detailed) and "high" (highly detailed), representing different levels of complexity in the prompts used.
 
 ## Folder Structure
 
