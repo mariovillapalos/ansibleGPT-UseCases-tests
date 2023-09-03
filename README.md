@@ -19,7 +19,7 @@ The repository is organized as follows:
     - `test_case1_HD_rhel8_iter2.yml`: Playbook for the second iteration with a highly detailed prompt.
     - `output_case1_HD_rhel8_iter2.txt`: Output of the execution of the second iteration with a highly detailed playbook.
     - (Repeat this structure for up to five iterations)
-  (Repeat structure for Use Cases 2 through 9)
+(Repeat structure for Use Cases 2 through 9)
 
 ## Project Description
 
