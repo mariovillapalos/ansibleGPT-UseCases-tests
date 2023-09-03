@@ -8,7 +8,7 @@ The repository is organized as follows:
 
 - `case1/`: Tests corresponding to Use Case 1.
   - `low/`: Tests with less detailed prompts.
-    - `playbook_low.yml`: Playbook generated with a less detailed prompt.
+    - `playbook_low.yml`: Playbook generated with a low-detailed prompt.
     - `output_low.txt`: Result of the execution of the less detailed playbook.
   - `high/`: Tests with highly detailed prompts.
     - `playbook_high.yml`: Playbook generated with a highly detailed prompt.
