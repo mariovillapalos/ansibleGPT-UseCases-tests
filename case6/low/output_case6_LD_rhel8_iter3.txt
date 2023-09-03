@@ -1,4 +1,3 @@
-Using /etc/ansible/ansible.cfg as config file
 
 PLAY [Audit and enable gpgcheck in yum.conf] ***********************************
 
@@ -6,40 +5,19 @@ TASK [Gathering Facts] *********************************************************
 ok: [192.168.73.142]
 
 TASK [Check if gpgcheck is disabled] *******************************************
-ok: [192.168.73.142] => changed=false 
-  cmd: grep -q "^gpgcheck=0$" /etc/yum.conf
-  delta: '0:00:00.003538'
-  end: '2023-06-24 11:59:27.864690'
-  msg: ''
-  rc: 0
-  start: '2023-06-24 11:59:27.861152'
-  stderr: ''
-  stderr_lines: <omitted>
-  stdout: ''
-  stdout_lines: <omitted>
+ok: [192.168.73.142]
 
 TASK [Backup original yum.conf] ************************************************
-ok: [192.168.73.142] => changed=false 
-  cmd:
-  - cp
-  - /etc/yum.conf
-  - /etc/yum.conf.bak
-  delta: '0:00:00.003205'
-  end: '2023-06-24 11:59:28.384142'
-  msg: ''
-  rc: 0
-  start: '2023-06-24 11:59:28.380937'
-  stderr: ''
-  stderr_lines: <omitted>
-  stdout: ''
-  stdout_lines: <omitted>
+ok: [192.168.73.142]
 
 TASK [Update yum.conf to enable gpgcheck] **************************************
-changed: [192.168.73.142] => changed=true 
-  backup: ''
-  msg: line replaced
+changed: [192.168.73.142]
+
+RUNNING HANDLER [restart_yum] **************************************************
+fatal: [192.168.73.142]: FAILED! => changed=false 
+  msg: 'Could not find the requested service yum-cron: host'
 
 PLAY RECAP *********************************************************************
-192.168.73.142             : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+192.168.73.142             : ok=4    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
 
-Playbook run took 0 days, 0 hours, 0 minutes, 19 seconds
+Playbook run took 0 days, 0 hours, 0 minutes, 22 seconds

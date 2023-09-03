@@ -22,9 +22,12 @@
             regexp: "^gpgcheck="
             line: "gpgcheck=1"
           when: gpgcheck_disabled.rc == 0
+      notify: restart_yum
+      
+  handlers:
+    - name: restart_yum
+      service:
+        name: yum-cron
+        state: restarted
 
-      rescue:
-        - name: Restore original yum.conf
-          command: cp /etc/yum.conf.bak /etc/yum.conf
-          changed_when: false
 ...
