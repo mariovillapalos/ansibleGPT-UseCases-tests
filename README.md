@@ -8,10 +8,10 @@ The repository is organized as follows:
 
 - `case1/`: Tests corresponding to Use Case 1.
   - `low/`: Tests with less detailed prompts.
-    - `test_case1_LD_rhel8_iter1.yml`: Playbook for the first iteration with a less detailed prompt.
-    - `output_case1_LD_rhel8_iter1.txt`: Output of the execution of the first iteration with a less detailed playbook.
-    - `test_case1_LD_rhel8_iter2.yml`: Playbook for the second iteration with a less detailed prompt.
-    - `output_case1_LD_rhel8_iter2.txt`: Output of the execution of the second iteration with a less detailed playbook.
+    - `test_case1_LD_rhel8_iter1.yml`: Playbook for the first iteration with a low-detailed prompt.
+    - `output_case1_LD_rhel8_iter1.txt`: Output of the execution of the first iteration with a low-detailed playbook.
+    - `test_case1_LD_rhel8_iter2.yml`: Playbook for the second iteration with a low-detailed prompt.
+    - `output_case1_LD_rhel8_iter2.txt`: Output of the execution of the second iteration with a low-detailed playbook.
     - (Repeat this structure for up to five iterations)
   - `high/`: Tests with highly detailed prompts.
     - `test_case1_HD_rhel8_iter1.yml`: Playbook for the first iteration with a highly detailed prompt.
